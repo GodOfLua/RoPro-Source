@@ -69,6 +69,6 @@ def api_data():
     if not os.path.isfile(f"./VerifyQueue/{username}.txt"):
         return Response('{"status": "not_found", "Found": "false"}', status=200, mimetype='application/json') 
 
-    return Response('{"status": "success", "Found": "true", "discordId": '+json.loads(open(f"./VerifyQueue/{username}.txt").read())["discordId"]+', "tag": '+json.loads(open(f"./VerifyQueue/{username}.txt").read())["tag"]+'}', status=200, mimetype='application/json') 
+    return Response('{"status": "success", "Found": "true", "discordId": '+json.loads(open(f"./VerifyQueue/{username}.txt").read())["discordId"]+', "tag": "'+json.loads(open(f"./VerifyQueue/{username}.txt").read())["tag"]+'"}', status=200, mimetype='application/json') 
 
 app.run('0.0.0.0', debug=True, port=5000)
