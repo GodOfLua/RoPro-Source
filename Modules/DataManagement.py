@@ -34,7 +34,8 @@ def createGuildData(GuildId):
             "BOUND_GROUPS": {},
             "RoNick": True,
             "VerifyChannel": "none",
-            "NicknameFormat": "{roblox_name}"
+            "NicknameFormat": "{roblox_name}",
+            "Acronyms": {},
         }
         SaveData(f"./Data/Server_Data/{str(GuildId)}.json", Data)
 
@@ -89,4 +90,15 @@ def putprimary(GuildId):
         Data = getData(f"./Data/Server_Data/{str(GuildId)}.json")
     
     Data["PrimaryNickname"] = "none"
+    SaveData(f"./Data/Server_Data/{GuildId}.json", Data)
+
+def putAcronyms(GuildId):
+
+    Data = getData(f"./Data/Server_Data/{str(GuildId)}.json")
+
+    if Data == None:
+        createGuildData(GuildId)
+        Data = getData(f"./Data/Server_Data/{str(GuildId)}.json")
+    
+    Data["Acronyms"] = {}
     SaveData(f"./Data/Server_Data/{GuildId}.json", Data)

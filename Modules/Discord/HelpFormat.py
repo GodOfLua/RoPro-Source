@@ -24,6 +24,8 @@ def helpv():
     `setnickname <StringFormat>`   **->**  Changes the format users gets their username assigned default is {roblox_name} view !magicwords to see all of them.
     `setprimary`<GroupId>`  **->**  Changes the group the bot focuses on when setting a username of a user. (This is only important if you use {role} magic word.)
 
+    Total verifcation module commands: 16
+
     More commands will be added in future if you want to keep track of process join our [discord](https://discord.gg/YAjecH3uPx)
     If you wish to use this bot in your server click [here](https://discord.com/api/oauth2/authorize?client_id=810478441224732702&permissions=8&scope=bot)
 
@@ -39,10 +41,18 @@ def helpv2():
 
     `setverifychannel <ChannelMention | ChannelId | ChannelName or say none>`   **->**  Changes the verify channel to the specified one. Say none to make the bot respond to the commands verify and getroles in every channel. Specify one to make the bot respond to the commands verify and getroles in the specified one. 
 
+    Acronym commands:
+
+    `addacronym <StringFormat (Example: Level - 1:L1)`  **->**  Adds an acronym to the server settings. An name would be displayed as the acronym instead.
+    `delacronym <String (Example: Level - 1)>`  **->**  Removes an acronym from the server settings. Names will stop being displayed as the acronym.
+    `acronyms`  **->**  Responds with an list of all set acronyms.
+
     Explanations:
 
     `RankRange`     **->**      As example 0:255 which would specify a minimum of rank required 0 and maximum able to get the role 255. You can also just said one number this will be then the min and max at the same time, which means only that rank would get the role.
     `StringFormat`  **->**      An specific format you set. Examples: {role} | {roblox_name}, {roblox_name}
+
+    Total verifcation module commands: 16
 
     More commands will be added in future if you want to keep track of process join our [discord](https://discord.gg/YAjecH3uPx)
     If you wish to use this bot in your server click [here](https://discord.com/api/oauth2/authorize?client_id=810478441224732702&permissions=8&scope=bot)

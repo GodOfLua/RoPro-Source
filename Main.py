@@ -34,23 +34,12 @@ TestingMode = True
 start_time = time.time()
 
 Client, Token = Bot.intialize(TestingMode)
-
-async def status():
-     while True:
-        await Client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=" ! | !invite"))
-        await asyncio.sleep(20)
-        totalCount = 0
-        for i in Client.guilds:
-            totalCount += len(i.members)
-        await Client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=" over "+str(totalCount)+" users"))
-        await asyncio.sleep(20)
-
 LastCommand = {}
 
 @Client.event 
 async def on_ready():
     printi("Bot has loaded all libraries.",start_time)
-    Client.loop.create_task(status())
+    Client.loop.create_task(Bot.status(Client))
 
 @Client.event 
 async def on_message(message):
@@ -252,6 +241,12 @@ async def on_message(message):
                 await setprimary(message, Arguments)
             elif Command == "magicwords":
                 await Reply(embed=magicword())
+            elif Command == "addacronym":
+                await addAcronym(message, Arguments)
+            elif Command == "delacronym":
+                await delAcronym(message, Arguments)
+            elif Command == "acronyms":
+                await acronyms(message, Arguments)
             elif Command == "update":
                 try: 
                     if canManageRoles:
