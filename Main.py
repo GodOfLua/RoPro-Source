@@ -33,7 +33,7 @@ from Bot import Bot
 TestingMode = True
 start_time = time.time()
 
-Client = Bot.intialize(TestingMode)
+Client, Token = Bot.intialize(TestingMode)
 
 async def status():
      while True:

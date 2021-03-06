@@ -12,4 +12,4 @@ def intialize(IsTest):
     if IsTest:
         Token = "NzA3NTkyNzkxMjI3NjI5NjQy.XrLDIw.vCAYlAw9t1ku8emJ_0IfhVWejfg"
 
-    return discord.Client(intents=intents)
+    return discord.Client(intents=intents), Token
