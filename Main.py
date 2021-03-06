@@ -26,15 +26,14 @@ from Modules.Economy.MainEco import *
 # Discord 
 
 from Modules.Discord.HelpFormat import *
+from Bot import Bot
 
-intents = discord.Intents.default()
-intents.members = True
+# Testing
+
+TestingMode = True
 start_time = time.time()
 
-Settings = json.loads(open("./Data/BOT_SETTINGS.json").read())
-Token = Settings["TOKEN"]
-
-Client = discord.Client(intents=intents)
+Client = Bot.intialize(TestingMode)
 
 async def status():
      while True:
