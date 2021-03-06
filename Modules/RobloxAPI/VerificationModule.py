@@ -31,7 +31,7 @@ async def acronyms(message, Arguments):
         GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")
 
     if not "Acronyms" in GuildData:
-        putnickformat(GuildId)
+        putAcronyms(GuildId)
         GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")
 
     Text = ""
@@ -88,7 +88,7 @@ async def addAcronym(message, Arguments):
         GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")
 
     if not "Acronyms" in GuildData:
-        putnickformat(GuildId)
+        putAcronyms(GuildId)
         GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")
 
     x = message.content[0+len(Arguments[0])+1:len(message.content)].split(":")
@@ -148,7 +148,7 @@ async def delAcronym(message, Arguments):
         GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")
 
     if not "Acronyms" in GuildData:
-        putnickformat(GuildId)
+        putAcronyms(GuildId)
         GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")
 
     x = message.content[0+len(Arguments[0])+1:len(message.content)]
