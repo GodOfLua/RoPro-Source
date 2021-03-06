@@ -2,7 +2,7 @@
 import discord 
 import json
 
-def Bot(IsTest):
+def intialize(IsTest):
     intents = discord.Intents.default()
     intents.members = True
 
