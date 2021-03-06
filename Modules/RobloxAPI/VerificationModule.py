@@ -411,7 +411,7 @@ async def Verification(message, auth, Command):
         createAuthorData(AuthorId)
         UserData = getData(f"./Data/User_Data/{str(AuthorId)}.json")
 
-    if not "VerifyChannel" GuildData:
+    if not "VerifyChannel" in GuildData:
         putVerify(GuildId)
         GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")
 
