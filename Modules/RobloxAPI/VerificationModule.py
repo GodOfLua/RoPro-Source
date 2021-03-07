@@ -640,6 +640,10 @@ async def Verification(message, auth, Command):
             "role": i["role"]
         }
 
+    if not "Acronyms" in GuildData:
+        putAcronyms(GuildId)
+        GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")
+
     Nickname = False
     if SpecifiedGuildData["RoNick"]:
         try:
