@@ -56,7 +56,7 @@ async def on_message(message):
             Reply = message.channel.send
             if str(message.author.id) in LastCommand:
                 TimeDiff = round(time.time() - LastCommand[str(message.author.id)],2)
-                if TimeDiff <= 2:
+                if TimeDiff <= 4:
                     await Reply(embed=Embed(
                         title = "Command Cooldown",
                         description = "You are currently on command cooldown. Time remaining: "+str(TimeDiff),
@@ -272,6 +272,8 @@ async def on_message(message):
                 await deposit(message,Arguments)
             elif Command == "withdraw":
                 await withdraw(message,Arguments)
+            elif Command == "beg":
+                await beg(message,Arguments)
         except Exception as e:
             import traceback
 
