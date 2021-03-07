@@ -2,6 +2,8 @@
 from Modules.Discord.Embeds import *
 from Modules.DataManagement import *
 import discord 
+import time
+import random
 
 FooterText = "Powered by RoPro System · !invite"
 
@@ -29,6 +31,26 @@ def GetUserEconomyData(id):
         SaveData(f"./Data/UserEconomy_Data/{str(id)}.json",DefaultData)
         AuthorData = getData(f"./Data/UserEconomy_Data/{str(id)}.json")
     return AuthorData
+
+def CheckCooldown(Command,id):
+    CooldownCache = getData(f"./Modules/Economy/CooldownCache/{str(id)}.json")
+    if CooldownCache == None:
+        DefaultData = {}
+        SaveData(f"./Modules/Economy/CooldownCache/{str(id)}.json",DefaultData)
+        CooldownCache = getData(f"./Modules/Economy/CooldownCache/{str(id)}.json")
+    if Command in CooldownCache:
+        return CooldownCache[Command]
+    else:
+        return 0
+
+def SaveCooldown(Command,id):
+    CooldownCache = getData(f"./Modules/Economy/CooldownCache/{str(id)}.json")
+    if CooldownCache == None:
+        DefaultData = {}
+        SaveData(f"./Modules/Economy/CooldownCache/{str(id)}.json",DefaultData)
+        CooldownCache = getData(f"./Modules/Economy/CooldownCache/{str(id)}.json")
+    CooldownCache[Command] = time.time()
+    SaveData(f"./Modules/Economy/CooldownCache/{str(id)}.json",CooldownCache)
 
 async def checkbal(message, Arguments):
     Reply = message.channel.send
@@ -128,3 +150,48 @@ async def withdraw(message,Arguments):
             await Reply(embed=embed)
     else:
         await throw("argumentError",{"method":Reply,"command":"withdraw","length":1,"pronounce":"Argument","arguments":"[Amount]"})
+
+async def beg(message,Arguments):
+    Reply = message.channel.send
+    GuildId = message.guild.id
+    Author = message.author
+    BackgroundLessColor = int(3553599)
+
+    IsAdministrator = message.author.guild_permissions.administrator
+    canManageRoles = message.author.guild_permissions.manage_roles
+
+    AuthorData = GetUserEconomyData(Author.id)
+
+    Recieve_Custom_Messages = [
+        "{Ping}, you found `{Amount}` on the street!",
+        "{Ping}, you recieved `{Amount}` from a random stranger.",
+    ]
+
+    Failed_Custom_Messages = [
+        "{Ping}, someone just told you to go work for your own money.",
+    ]
+    LastRun = CheckCooldown("beg",Author.id)
+    if time.time() - LastRun <= 120:
+        TimeLeft = round((120 + LastRun)-time.time(),1)
+        await Reply(embed=discord.Embed(
+            title = "Command cooldown",
+            description = f"You cannot run this command. Time left: `{str(TimeLeft)}s`",
+            color = 0xc84c4c
+        ))
+        return
+    else:
+        # Chance for getting money 2/3
+        # Chance for not getting money 1/3
+        if random.randint(1,3) == 2:
+            #unlucky
+            RandomString = random.choice(Failed_Custom_Messages).format(Ping=f"<@{str(Author.id)}>")
+            await Reply(RandomString)
+            SaveCooldown("beg",Author.id)
+        else:
+            ValueAmount = random.randint(70,160)
+            RandomString = random.choice(Recieve_Custom_Messages).format(Ping=f"<@{str(Author.id)}>",Amount=f"${str(ValueAmount)}")
+            await Reply(RandomString)
+
+            AuthorData["cashvalue"]["wallet"] = AuthorData["cashvalue"]["wallet"] + ValueAmount
+
+            SaveData(f"./Data/UserEconomy_Data/{str(Author.id)}.json",AuthorData)

@@ -56,7 +56,7 @@ async def on_message(message):
             Reply = message.channel.send
             if str(message.author.id) in LastCommand:
                 TimeDiff = round(time.time() - LastCommand[str(message.author.id)],2)
-                if TimeDiff <= 2:
+                if TimeDiff <= 4:
                     await Reply(embed=Embed(
                         title = "Command Cooldown",
                         description = "You are currently on command cooldown. Time remaining: "+str(TimeDiff),
@@ -154,7 +154,7 @@ async def on_message(message):
             elif Command == "invite":
                 await Reply(embed=Embed(
                     title = "Invite our bot!",
-                    description = "[Invite me](https://discord.com/api/oauth2/authorize?client_id=810478441224732702&permissions=8&scope=bot) * [Support Server](https://discord.gg/mrJyPf8NgS)",
+                    description = "[Invite me](https://discord.com/api/oauth2/authorize?client_id=810478441224732702&permissions=8&scope=bot) * [Support Server](https://discord.gg/dNGrZAPgFY)",
                     color = 0x009dff
                 ))    
 
@@ -186,7 +186,7 @@ async def on_message(message):
 
             elif Command == "help":
                 if len(Arguments) == 1:
-                    embed=discord.Embed(title="Help list", color=0x8000ff, description="More commands will be added in future if you want to keep track of process join our [discord](https://discord.gg/YAjecH3uPx)\nIf you wish to use this bot in your server click [here](https://discord.com/api/oauth2/authorize?client_id=810478441224732702&permissions=8&scope=bot)")     
+                    embed=discord.Embed(title="Help list", color=0x8000ff, description="More commands will be added in future if you want to keep track of process join our [discord](https://discord.gg/dNGrZAPgFY)\nIf you wish to use this bot in your server click [here](https://discord.com/api/oauth2/authorize?client_id=810478441224732702&permissions=8&scope=bot)")     
                     embed.add_field(name="Verification ", value="run !help verification", inline=True)
                     embed.add_field(name="Ranking", value="run !help ranking", inline=True)
                     embed.add_field(name="Economy", value="run !help economy", inline=True)
@@ -272,6 +272,8 @@ async def on_message(message):
                 await deposit(message,Arguments)
             elif Command == "withdraw":
                 await withdraw(message,Arguments)
+            elif Command == "beg":
+                await beg(message,Arguments)
         except Exception as e:
             import traceback
 

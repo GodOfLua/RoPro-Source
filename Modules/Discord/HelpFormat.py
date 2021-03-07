@@ -26,7 +26,7 @@ def helpv():
 
     Total verifcation module commands: 16
 
-    More commands will be added in future if you want to keep track of process join our [discord](https://discord.gg/YAjecH3uPx)
+    More commands will be added in future if you want to keep track of process join our [discord](https://discord.gg/dNGrZAPgFY)
     If you wish to use this bot in your server click [here](https://discord.com/api/oauth2/authorize?client_id=810478441224732702&permissions=8&scope=bot)
 
     This is page 1 say !help verification 2 to see the next page.
@@ -54,7 +54,7 @@ def helpv2():
 
     Total verifcation module commands: 16
 
-    More commands will be added in future if you want to keep track of process join our [discord](https://discord.gg/YAjecH3uPx)
+    More commands will be added in future if you want to keep track of process join our [discord](https://discord.gg/dNGrZAPgFY)
     If you wish to use this bot in your server click [here](https://discord.com/api/oauth2/authorize?client_id=810478441224732702&permissions=8&scope=bot)
 
     This is page 2 say !help verification to see the previous page.
@@ -78,7 +78,7 @@ def helpr():
     `demote <GroupId> <Username>`      **->**      Demotets an user to the next lower role in the given group.
     `setrank <GroupId> <Username> <Rank>`      **->**      Changes the rank from an user to the specified one..
 
-    More commands will be added in future if you want to keep track of process join our [discord](https://discord.gg/YAjecH3uPx)
+    More commands will be added in future if you want to keep track of process join our [discord](https://discord.gg/dNGrZAPgFY)
     If you wish to use this bot in your server click [here](https://discord.com/api/oauth2/authorize?client_id=810478441224732702&permissions=8&scope=bot)
     ''', color=0x8000ff)  
     embed.set_footer(text="Made by GodOf_Lua #2643 and SomethingElse#0024")
@@ -90,7 +90,7 @@ def helpe():
 
     Coming soon.
 
-    More commands will be added in future if you want to keep track of process join our [discord](https://discord.gg/YAjecH3uPx)
+    More commands will be added in future if you want to keep track of process join our [discord](https://discord.gg/dNGrZAPgFY)
     If you wish to use this bot in your server click [here](https://discord.com/api/oauth2/authorize?client_id=810478441224732702&permissions=8&scope=bot)
     ''', color=0x8000ff)  
     embed.set_footer(text="Made by GodOf_Lua #2643 and SomethingElse#0024")
@@ -104,7 +104,7 @@ def magicword():
     `{discord_name}`     **->**  Specifies the discord name of an user.
     `{discord_tag}`     **->**  Specifies the discord tag of an user.
 
-    If you want to keep track of process join our [discord](https://discord.gg/YAjecH3uPx)
+    If you want to keep track of process join our [discord](https://discord.gg/dNGrZAPgFY)
     If you wish to use this bot in your server click [here](https://discord.com/api/oauth2/authorize?client_id=810478441224732702&permissions=8&scope=bot)
     ''', color=0x8000ff)  
     embed.set_footer(text="Made by GodOf_Lua #2643 and SomethingElse#0024")
