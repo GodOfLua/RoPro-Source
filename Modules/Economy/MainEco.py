@@ -195,3 +195,41 @@ async def beg(message,Arguments):
             AuthorData["cashvalue"]["wallet"] = AuthorData["cashvalue"]["wallet"] + ValueAmount
 
             SaveData(f"./Data/UserEconomy_Data/{str(Author.id)}.json",AuthorData)
+
+async def Payment(message,Arguments):
+    Reply = message.channel.send
+    GuildId = message.guild.id
+    Author = message.author
+    BackgroundLessColor = int(3553599)
+
+    IsAdministrator = message.author.guild_permissions.administrator
+    canManageRoles = message.author.guild_permissions.manage_roles
+
+    AuthorData = GetUserEconomyData(Author.id)
+    if len(Arguments) >= 3:
+        if "<@!" in message.content and ">" in message.content:
+            print(message.content)
+            SplittedMsg1 = message.content.split("<@!")
+            SplittedMsg = SplittedMsg1[1].split(">")
+            TargetID = SplittedMsg[0]
+            TargetUserData = GetUserEconomyData(TargetID)
+            MoneyTransfer = None
+            try:
+                if Arguments[2] == "all":
+                    MoneyTransfer = AuthorData["cashvalue"]["bank"]
+                else:
+                    MoneyTransfer = int(Arguments[2])
+            except:
+                await throw("numericError",{"method":Reply,"nameofError":"`Amount`"})
+                return
+            
+            if AuthorData["cashvalue"]["bank"] - MoneyTransfer < 0:
+                embed=discord.Embed(title="Insufficient Account balance", description=f"<@{str(Author.id)}> \nYou do not have enough money to give.", color=0xc84c4c)
+                embed.set_footer(text=FooterText)
+                await Reply(embed=embed)
+            else:
+                pass
+        else:
+            await throw("argumentError",{"method":Reply,"command":"pay","length":1,"pronounce":"Argument","arguments":"[Ping] [Amount]"})
+    else:
+        await throw("argumentError",{"method":Reply,"command":"pay","length":1,"pronounce":"Argument","arguments":"[Ping] [Amount]"})

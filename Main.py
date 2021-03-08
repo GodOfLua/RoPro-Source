@@ -274,6 +274,8 @@ async def on_message(message):
                 await withdraw(message,Arguments)
             elif Command == "beg":
                 await beg(message,Arguments)
+            elif Command == "pay":
+                await Payment(message,Arguments)
         except Exception as e:
             import traceback
 
