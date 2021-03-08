@@ -33,8 +33,14 @@ from Bot import Bot
 TestingMode = True
 start_time = time.time()
 
-Client, Token = Bot.intialize(TestingMode)
 LastCommand = {}
+
+## BOT
+Discord_Bot = Bot.Bot()
+Client = Discord_Bot.Client()
+Token = Discord_Bot.Token(TestingMode)
+
+## START
 
 @Client.event 
 async def on_ready():
