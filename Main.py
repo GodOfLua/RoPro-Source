@@ -241,7 +241,7 @@ async def on_message(message):
                 await unbind(message, Arguments)
             elif Command == "getroles":
                 await VerifyUser(message, None, Command)
-            elif Command == "bindings":
+            elif Command == "bindings" or Command == "binds":
                 await listBindings(message, Arguments)
             elif Command == "setprimary":
                 await setprimary(message, Arguments)
