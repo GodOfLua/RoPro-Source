@@ -874,7 +874,7 @@ async def bindAccount(message, Client):
             if reply == "timeout":
                 if not os.path.isfile(f"./WebAPI/VerifyQueue/{userName}.txt"):
                     await dmChannelMethod.send(embed=discord.Embed(
-                        description = "Account has been verified trough game.",
+                        description = "Account has been verified through game.",
                         color = 0x3a9518,
                     ))
                     return 200
@@ -896,13 +896,13 @@ async def bindAccount(message, Client):
         return
     if not os.path.isfile(f"./WebAPI/VerifyQueue/{userName}.txt"):
         await dmChannelMethod.send(embed=discord.Embed(
-            description = "Account has been verified trough game.",
+            description = "Account has been verified through game.",
             color = 0x3a9518,
         ))
         return
 
     await dmChannelMethod.send(embed=discord.Embed(
-            description = "Account hasn't been verified trough game, retry with !bindaccount.",
+            description = "Account hasn't been verified through game, retry with !bindaccount.",
             color = 0x3a9518,
         ))
 
