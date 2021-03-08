@@ -741,7 +741,7 @@ async def Verification(message, auth, Command):
         RemovedRoles = "None"
 
     try:
-        await mainMessage.edit(embed=rolesEmbed(Nickname, AddedRoles, RemovedRoles, boundAccount["Username"]))
+        await mainMessage.edit(embed=rolesEmbed(Nickname, AddedRoles, RemovedRoles, Format))
     except:
         pass
 
