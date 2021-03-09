@@ -16,17 +16,6 @@ def GetUserEconomyData(id):
                 "bank" : 0
             },
             "inventory" : {},
-            "lastredeem" : {
-                "day" : {
-                    "unix" : 0,
-                },
-                "weekly" : {
-                    "unix" : 0,
-                },
-                "monthly" : {
-                    "unix" : 0,
-                },
-            }
         }
         SaveData(f"./Data/UserEconomy_Data/{str(id)}.json",DefaultData)
         AuthorData = getData(f"./Data/UserEconomy_Data/{str(id)}.json")
@@ -245,3 +234,76 @@ async def Payment(message,Arguments):
             await throw("argumentError",{"method":Reply,"command":"pay","length":1,"pronounce":"Argument","arguments":"[Ping] [Amount]"})
     else:
         await throw("argumentError",{"method":Reply,"command":"pay","length":1,"pronounce":"Argument","arguments":"[Ping] [Amount]"})
+
+def ConvertTime(seconds):
+    seconds = seconds % (24 * 86400)
+    day = seconds // 86400
+    seconds %= 86400
+    hour = seconds // 3600
+    seconds %= 3600
+    minutes = seconds // 60
+    seconds %= 60
+      
+    return "%dd:%02dh:%02dm:%02ds" % (day,hour, minutes, seconds) 
+
+async def Daily(message,Arguments):
+    Reply = message.channel.send
+    GuildId = message.guild.id
+    Author = message.author
+    BackgroundLessColor = int(3553599)
+
+    IsAdministrator = message.author.guild_permissions.administrator
+    canManageRoles = message.author.guild_permissions.manage_roles
+
+    AuthorData = GetUserEconomyData(Author.id)
+    LastRun = CheckCooldown("daily",Author.id)
+
+    if time.time()-LastRun <= 86400:
+        res = ConvertTime(round(86400-(time.time()-LastRun)))
+        await Reply(embed=discord.Embed(
+            title = "Command cooldown",
+            description = f"You cannot run this command. Time left: `{res}`",
+            color = 0xc84c4c
+        ))
+        return
+    else:
+        SaveCooldown("daily", Author.id)
+        RandomAmount = random.randint(300,600)
+        await Reply(embed=discord.Embed(
+            title = "Daily cash",
+            description = f"You have earned `${str(RandomAmount)}`",
+            color = 0x3a9518
+        ))
+        AuthorData["cashvalue"]["bank"] = AuthorData["cashvalue"]["bank"] + RandomAmount
+        SaveData(f"./Data/UserEconomy_Data/{str(Author.id)}.json", AuthorData)
+
+async def Weekly(message,Arguments):
+    Reply = message.channel.send
+    GuildId = message.guild.id
+    Author = message.author
+    BackgroundLessColor = int(3553599)
+
+    IsAdministrator = message.author.guild_permissions.administrator
+    canManageRoles = message.author.guild_permissions.manage_roles
+
+    AuthorData = GetUserEconomyData(Author.id)
+    LastRun = CheckCooldown("weekly",Author.id)
+
+    if time.time()-LastRun <= 604800:
+        res = ConvertTime(round(604800-(time.time()-LastRun)))
+        await Reply(embed=discord.Embed(
+            title = "Command cooldown",
+            description = f"You cannot run this command. Time left: `{res}`",
+            color = 0xc84c4c
+        ))
+        return
+    else:
+        SaveCooldown("weekly", Author.id)
+        RandomAmount = random.randint(2100,4200)
+        await Reply(embed=discord.Embed(
+            title = "Weekly cash",
+            description = f"You have earned `${str(RandomAmount)}`",
+            color = 0x3a9518
+        ))
+        AuthorData["cashvalue"]["bank"] = AuthorData["cashvalue"]["bank"] + RandomAmount
+        SaveData(f"./Data/UserEconomy_Data/{str(Author.id)}.json", AuthorData)

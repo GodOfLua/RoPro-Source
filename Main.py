@@ -47,6 +47,12 @@ async def on_ready():
     printi("Bot has loaded all libraries.",start_time)
     Client.loop.create_task(Bot.status(Client))
 
+CustomCooldownCommands = [
+    "beg",
+    "daily",
+    "weekly"
+]
+
 @Client.event 
 async def on_message(message):
     global LastCommand
@@ -58,9 +64,10 @@ async def on_message(message):
 
     if message.content[0:len(Server_Prefix)] == Server_Prefix:
         try:
-
+            Arguments = message.content.split(" ")
+            Command = Arguments[0][len("!"):len(Arguments[0])]
             Reply = message.channel.send
-            if str(message.author.id) in LastCommand:
+            if str(message.author.id) in LastCommand and Command not in CustomCooldownCommands:
                 TimeDiff = round(time.time() - LastCommand[str(message.author.id)],2)
                 if TimeDiff <= 4:
                     await Reply(embed=Embed(
@@ -74,8 +81,6 @@ async def on_message(message):
 
             # Message
 
-            Arguments = message.content.split(" ")
-            Command = Arguments[0][len("!"):len(Arguments[0])]
             GuildId = message.guild.id
             Author = message.author
             BackgroundLessColor = int(3553599)
@@ -282,6 +287,10 @@ async def on_message(message):
                 await beg(message,Arguments)
             elif Command == "pay":
                 await Payment(message,Arguments)
+            elif Command == "daily":
+                await Daily(message, Arguments)
+            elif Command == "weekly":
+                await Weekly(message, Arguments)
         except Exception as e:
             import traceback
 
