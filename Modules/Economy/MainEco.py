@@ -208,27 +208,39 @@ async def Payment(message,Arguments):
     AuthorData = GetUserEconomyData(Author.id)
     if len(Arguments) >= 3:
         if "<@!" in message.content and ">" in message.content:
-            print(message.content)
             SplittedMsg1 = message.content.split("<@!")
             SplittedMsg = SplittedMsg1[1].split(">")
             TargetID = SplittedMsg[0]
             TargetUserData = GetUserEconomyData(TargetID)
             MoneyTransfer = None
             try:
-                if Arguments[2] == "all":
-                    MoneyTransfer = AuthorData["cashvalue"]["bank"]
+                if len(Arguments) >= 4:
+                    if Arguments[3] == "all":
+                        MoneyTransfer = AuthorData["cashvalue"]["bank"]
+                    else:
+                        MoneyTransfer = int(Arguments[3])
                 else:
-                    MoneyTransfer = int(Arguments[2])
-            except:
+                    if Arguments[2] == "all":
+                        MoneyTransfer = AuthorData["cashvalue"]["bank"]
+                    else:
+                        MoneyTransfer = int(Arguments[2])
+            except Exception as e:
                 await throw("numericError",{"method":Reply,"nameofError":"`Amount`"})
+                print(e)
                 return
             
             if AuthorData["cashvalue"]["bank"] - MoneyTransfer < 0:
-                embed=discord.Embed(title="Insufficient Account balance", description=f"<@{str(Author.id)}> \nYou do not have enough money to give.", color=0xc84c4c)
+                embed=discord.Embed(title="Insufficient Account balance", description=f"<@{str(Author.id)}> \nYou do not have enough money in your bank to give.", color=0xc84c4c)
                 embed.set_footer(text=FooterText)
                 await Reply(embed=embed)
             else:
-                pass
+                AuthorData["cashvalue"]["bank"] = AuthorData["cashvalue"]["bank"] - MoneyTransfer
+                TargetUserData["cashvalue"]["bank"] = TargetUserData["cashvalue"]["bank"] + MoneyTransfer
+                embed=discord.Embed(title="Money transferred", description=f"<@{str(Author.id)}> \n`${str(MoneyTransfer)}` has been transferred to <@!{str(TargetID)}>.", color=0x3a9518)
+                embed.set_footer(text=FooterText)
+                await Reply(embed=embed)
+                SaveData(f"./Data/UserEconomy_Data/{str(Author.id)}.json",AuthorData)
+                SaveData(f"./Data/UserEconomy_Data/{str(TargetID)}.json",TargetUserData)
         else:
             await throw("argumentError",{"method":Reply,"command":"pay","length":1,"pronounce":"Argument","arguments":"[Ping] [Amount]"})
     else:

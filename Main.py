@@ -65,7 +65,7 @@ async def on_message(message):
                 if TimeDiff <= 4:
                     await Reply(embed=Embed(
                         title = "Command Cooldown",
-                        description = "You are currently on command cooldown. Time remaining: "+str(TimeDiff),
+                        description = "You are currently on command cooldown. Time remaining: `"+str(round(4-TimeDiff,2))+"`secs",
                         color = 0xff0000
                     ))
                     return
