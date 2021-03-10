@@ -40,18 +40,14 @@ Discord_Bot = Bot.Bot()
 Client = Discord_Bot.Client()
 Token = Discord_Bot.Token(TestingMode)
 
+Discord_Bot.addCooldownIgnore(["beg", "daily", "weekly"])
+
 ## START
 
 @Client.event 
 async def on_ready():
     printi("Bot has loaded all libraries.",start_time)
     Client.loop.create_task(Bot.status(Client))
-
-CustomCooldownCommands = [
-    "beg",
-    "daily",
-    "weekly"
-]
 
 @Client.event 
 async def on_message(message):
@@ -67,15 +63,10 @@ async def on_message(message):
             Arguments = message.content.split(" ")
             Command = Arguments[0][len("!"):len(Arguments[0])]
             Reply = message.channel.send
-            if str(message.author.id) in LastCommand and Command not in CustomCooldownCommands:
-                TimeDiff = round(time.time() - LastCommand[str(message.author.id)],2)
-                if TimeDiff <= 4:
-                    await Reply(embed=Embed(
-                        title = "Command Cooldown",
-                        description = "You are currently on command cooldown. Time remaining: `"+str(round(4-TimeDiff,2))+"`secs",
-                        color = 0xff0000
-                    ))
-                    return
+
+            if await Discord_Bot.procressCooldown(message.Author.id, Command, message.channel.send) == False:
+                return
+
             LastCommand[str(message.author.id)] = time.time()
             printi(f"Command called from {str(message.guild.id)}",start_time)
 
