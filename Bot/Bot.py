@@ -8,6 +8,8 @@ import importlib.util
 import asyncio
 import requests
 import time
+from Modules.DataManagement import *
+from discord import Embed
 
 async def status(Client):
     import asyncio
@@ -39,13 +41,47 @@ class Bot():
             if Difference <= 3:
                 await Reply(embed=Embed(
                     title = "Command Cooldown",
-                    description = "You are currently on command cooldown. Time remaining: `"+str(round(4-TimeDiff,2))+"`secs",
+                    description = "You are currently on command cooldown. Time remaining: `"+str(round(3-Difference,2))+"`secs",
                     color = 0xff0000
                 ))
                 return False 
             else:
                 self.cooldown[str(userId)] = time.time()
                 return True
+        else:
+            self.cooldown[str(userId)] = time.time()
+            return True
+
+    async def procressCommands(self, message, Arguments, Command, Client, Discord_Bot):
+
+        try:
+            spec = importlib.util.spec_from_file_location("module.name", f"./Commands/{Command}.py")
+            foo = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(foo)
+            await foo.run(message, Arguments, Client, Discord_Bot)
+        except Exception as e:
+            return 
+
+    def catchGuildSettings(self, guildId):
+        guildData = getData(f"./Data/ServerUser_Data_Data/{str(AuthorId)}.json")
+
+        if not "Acronyms" in GuildData:
+            putAcronyms(GuildId)
+            GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")
+
+        if not "RoNick" in GuildData:
+            putRoNick(GuildId)
+            GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")
+    
+        if not "NicknameFormat" in GuildData:
+            putnickformat(GuildId)
+            GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")
+
+        if not "PrimaryNickname" in GuildData:
+            putprimary(GuildId)
+            GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")
+
+        return GuildData
 
     def __init__(self):
         self.cooldown = {}

@@ -61,10 +61,10 @@ async def on_message(message):
     if message.content[0:len(Server_Prefix)] == Server_Prefix:
         try:
             Arguments = message.content.split(" ")
-            Command = Arguments[0][len("!"):len(Arguments[0])]
+            Command = Arguments[0][len(Server_Prefix):len(Arguments[0])]
             Reply = message.channel.send
 
-            if await Discord_Bot.procressCooldown(message.Author.id, Command, message.channel.send) == False:
+            if await Discord_Bot.procressCooldown(message.author.id, Command, message.channel.send) == False:
                 return
 
             LastCommand[str(message.author.id)] = time.time()
@@ -83,6 +83,7 @@ async def on_message(message):
 
             # Methods
 
+            await Discord_Bot.procressCommands(message, Arguments, Command, Client, Discord_Bot)
 
             if Command == "cprefix":
 
