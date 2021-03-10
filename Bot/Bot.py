@@ -4,10 +4,20 @@ import json
 import os
 import importlib.util
 import asyncio
+import requests
 
 async def status(Client):
     import asyncio
     while True:
+        #x = requests.post("https://top.gg/api//bots/810478441224732702/stats", data = json.dumps({
+            #"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgxMDQ3ODQ0MTIyNDczMjcwMiIsImJvdCI6dHJ1ZSwiaWF0IjoxNjE1MzcxNTcwfQ.vb0pnlkBUVW_JllUPUIazki25BF8eakvMdTlJ4kDqo8",
+            #"server_count": len(list(Client.guilds))
+        #}), headers={'content-type': 'application/json'})
+        #print(x.status_code)
+        #try:
+            #print(x.text)
+        #except:
+            #pass
         await Client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=" ! | !invite"))
         await asyncio.sleep(20)
         totalCount = 0
