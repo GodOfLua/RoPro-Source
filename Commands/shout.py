@@ -50,7 +50,6 @@ async def run(message, Arguments, Client, Discord_Bot):
     elif res.status_code == 200:
         res = json.loads(res.text)
         if res["shout"] == None:
-            print("yes")
             await message.channel.send(embed=discord.Embed(
                 description = "The group's shout is empty.\nPlease note this command is very unreliable due to the behavior of the roblox API.",
                 footer = "Powered by RoPro Verification System · !invite",
@@ -60,7 +59,7 @@ async def run(message, Arguments, Client, Discord_Bot):
         await message.channel.send(embed=discord.Embed(
             description = "'"+res["shout"]["body"]+"' by "+res["shout"]["poster"]["username"]+"\nPlease note this command is very unreliable due to the behavior of the roblox API.",
             footer = "Powered by RoPro Verification System · !invite",
-            color = 0xc84c4c
+            color = 0xc337ac
         ))
     else:
         await throw("apiError", ReplyMethod)
