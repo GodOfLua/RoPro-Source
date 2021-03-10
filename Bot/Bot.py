@@ -60,10 +60,10 @@ class Bot():
             spec.loader.exec_module(foo)
             await foo.run(message, Arguments, Client, Discord_Bot)
         except Exception as e:
-            return 
+            raise Exception(e)
 
-    def catchGuildSettings(self, guildId):
-        guildData = getData(f"./Data/ServerUser_Data_Data/{str(AuthorId)}.json")
+    def catchGuildSettings(self, GuildId):
+        GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")
 
         if not "Acronyms" in GuildData:
             putAcronyms(GuildId)
