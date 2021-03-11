@@ -63,20 +63,26 @@ def helpv2():
     return embed
 
 def helpr():
-    embed=discord.Embed(title="Ranking Module commands", description='''
+    embed=discord.Embed(title="Groups Module commands", description='''
     User commands:
 
-    `list <GroupId>`    **->**      Responds with all roles from a group..
+    `list <GroupId>`    **->**      Responds with all roles from a group.
 
     Configuration commands:
 
     `setcookie <GroupId>`       **->**      Prompts you to enter the bot cookie used for ranking. (IT'S RECOMMENDED TO MAKE AN SEPERATE ROBLOX ACCOUNT FOR THAT PURPOSE.)
+
+    Group management:
+
+    `shout <GroupId>`    **->**  Responds with the shout from an group. (PLEASE NOTE: THIS COMMAND IS UNRELIABLE AS ROBLOX API FOR THAT DOSEN'T ALWAYS FUNCTION PROPERLY)
+    `setshout <GroupId> <Shout>`    **->**  Updates the shout of the specified group.
     
-    Group commands:
+    User management:
 
     `promote <GroupId> <Username>`      **->**      Promotes an user to the next higher role in the given group.
     `demote <GroupId> <Username>`      **->**      Demotets an user to the next lower role in the given group.
-    `setrank <GroupId> <Username> <Rank>`      **->**      Changes the rank from an user to the specified one..
+    `setrank <GroupId> <Username> <Rank>`      **->**      Changes the rank from an user to the specified one.
+    `exile <GroupId> <Username>`    **->**  Kicks an user from the specified group.
 
     More commands will be added in future if you want to keep track of process join our [discord](https://discord.gg/dNGrZAPgFY)
     If you wish to use this bot in your server click [here](https://discord.com/api/oauth2/authorize?client_id=810478441224732702&permissions=8&scope=bot)

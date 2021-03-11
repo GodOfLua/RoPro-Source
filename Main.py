@@ -191,7 +191,7 @@ async def on_message(message):
                 if len(Arguments) == 1:
                     embed=discord.Embed(title="Help list", color=0x8000ff, description="More commands will be added in future if you want to keep track of process join our [discord](https://discord.gg/dNGrZAPgFY)\nIf you wish to use this bot in your server click [here](https://discord.com/api/oauth2/authorize?client_id=810478441224732702&permissions=8&scope=bot)")     
                     embed.add_field(name="Verification ", value="run !help verification", inline=True)
-                    embed.add_field(name="Ranking", value="run !help ranking", inline=True)
+                    embed.add_field(name="Groups", value="run !help groups", inline=True)
                     embed.add_field(name="Economy", value="run !help economy", inline=True)
                     embed.set_footer(text="Made by GodOf_Lua #2643 and SomethingElse#0024")
                     await Reply(embed=embed)
@@ -206,7 +206,7 @@ async def on_message(message):
                             await Reply(embed=helpv2())
                         else:
                             await Reply(embed=helpv())
-                    elif Arguments[1].lower() == "ranking":
+                    elif Arguments[1].lower() == "groups" or Arguments[1].lower() == "group":
                         await Reply(embed=helpr())
                     elif Arguments[1].lower() == "economy" or Arguments[1].lower() == "eco":
                         await Reply(embed=helpe())
