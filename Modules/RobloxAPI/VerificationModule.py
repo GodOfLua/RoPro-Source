@@ -388,7 +388,7 @@ async def listBindings(message, Arguments):
         for i in GuildData["BOUND_GROUPS"]:
             i = GuildData["BOUND_GROUPS"][str(i)]
             data = requests.get("https://groups.roblox.com/v1/groups/"+str(i["ID"]))
-            if data.status_code == 200:
+            if data.status_code == 200 and len(i["BINDING"]) > 0:
                 textGen = textGen+"\n\n"+json.loads(data.text)["name"]+"\nrun !bindings "+str(i["ID"])+" to see rank bindings."
         await ReplyMethod(embed=bindingEmbed(textGen))
 

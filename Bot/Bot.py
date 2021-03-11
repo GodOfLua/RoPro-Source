@@ -59,6 +59,8 @@ class Bot():
             foo = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(foo)
             await foo.run(message, Arguments, Client, Discord_Bot)
+        except OSError as e:
+            return 
         except Exception as e:
             raise Exception(e)
 
