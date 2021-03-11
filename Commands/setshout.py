@@ -56,6 +56,15 @@ async def run(message, Arguments, Client, Discord_Bot):
             "nameofError": "GroupId"
         })
 
+    Admin = Author.guild_permissions.administrator
+
+    if not Admin:
+        await throw("permissionError", {
+            "method": message.channel.send,
+            "permission": "`ADMINISTRATOR`"
+        })
+        return
+
     mainMSG = await throw("workingMethod", ReplyMethod)
 
     if GuildData == None:
