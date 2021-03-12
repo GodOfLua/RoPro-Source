@@ -1,11 +1,11 @@
 <!DOCTYPE html>
     <html>
         <head>
-            <link rel="stylesheet" href="style.css">
+            <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
             <title>RoPro API documentation</title>
         </head>
         <body>
             <h1>RoPro API Documentation</h1>
-            <img src="caught.gif" class="gif"/>
+            <img src="{{ url_for('static', filename='caught.gif') }}" class="gif"/>
         </body>
     </html>

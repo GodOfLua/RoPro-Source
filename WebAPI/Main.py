@@ -10,7 +10,7 @@ app.config["DEBUG"] = True
 
 @app.route('/api/docs', methods=['GET'])
 def get():
-    return render_template('../RoPro_Web/apiDoc/api.html')
+    return render_template("api.html")
 
 @app.route('/api/v1/registerRobloxAccount', methods=['POST'])
 def api_verify():
