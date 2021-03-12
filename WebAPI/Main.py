@@ -6,6 +6,7 @@ import os,sys
 import json 
 from flask_swagger_ui import get_swaggerui_blueprint
 import requests
+import time
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
@@ -113,6 +114,7 @@ def api_data():
 
     return Response('{"status": "success", "Found": "true", "discordId": '+json.loads(open(f"./VerifyQueue/{username}.txt").read())["discordId"]+', "tag": "'+json.loads(open(f"./VerifyQueue/{username}.txt").read())["tag"]+'"}', status=200, mimetype='application/json') 
 
+req = {}
 @app.route('/api/v1/rank', methods=['POST'])
 def api_rank():
     data = request.args 
@@ -128,6 +130,20 @@ def api_rank():
 
     if not data["key"] in keys:
         return Response('{"status": "auth fail"}', status=403, mimetype='application/json')
+
+    if not data["key"] in req:
+        req[data["key"]] = {
+            "time": time.time(),
+            "count": 1
+        }
+
+    req[data["key"]]["count"] += 1
+
+    if req[data["key"]]["count"] >= 60:
+        if round(time.time() - req[data["key"]]["time"], 2) < 60:
+            return Response('{"status": "rate limit"}', status=429, mimetype='application/json')
+        else:
+            del req[data["key"]]
     
     username = str(data["username"])
     cookie = str(data["cookie"])

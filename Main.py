@@ -193,6 +193,7 @@ async def on_message(message):
                     embed.add_field(name="Verification ", value="run !help verification", inline=True)
                     embed.add_field(name="Groups", value="run !help groups", inline=True)
                     embed.add_field(name="Economy", value="run !help economy", inline=True)
+                    embed.add_field(name="API", value="run !help api", inline=True)
                     embed.set_footer(text="Made by GodOf_Lua #2643 and SomethingElse#0024")
                     await Reply(embed=embed)
                 else:
@@ -208,6 +209,8 @@ async def on_message(message):
                             await Reply(embed=helpv())
                     elif Arguments[1].lower() == "groups" or Arguments[1].lower() == "group":
                         await Reply(embed=helpr())
+                    elif Arguments[1].lower() == "api" or Arguments[1].lower() == "group":
+                        await Reply(embed=helpa())
                     elif Arguments[1].lower() == "economy" or Arguments[1].lower() == "eco":
                         await Reply(embed=helpe())
 

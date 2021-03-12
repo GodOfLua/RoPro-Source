@@ -90,6 +90,20 @@ def helpr():
     embed.set_footer(text="Made by GodOf_Lua #2643 and SomethingElse#0024")
     return embed
 
+def helpa():
+    embed=discord.Embed(title="API Module commands", description='''
+
+    API Commands:
+
+    `apikey`    **->**  Responds with the API key used in the api for this guild.
+    `docs`  **->**  Responds with the API documentation.
+
+    More commands will be added in future if you want to keep track of process join our [discord](https://discord.gg/dNGrZAPgFY)
+    If you wish to use this bot in your server click [here](https://discord.com/api/oauth2/authorize?client_id=810478441224732702&permissions=8&scope=bot)
+    ''', color=0x8000ff)  
+    embed.set_footer(text="Made by GodOf_Lua #2643 and SomethingElse#0024")
+    return embed
+
 def helpe():
     embed=discord.Embed(title="Economy Module commands", description='''
     User commands:
