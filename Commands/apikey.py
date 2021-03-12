@@ -23,14 +23,6 @@ async def run(message, Arguments, Client, Discord_Bot):
 
     Admin = Author.guild_permissions.administrator
 
-    if not Admin:
-        await throw("permissionError", {
-            "method": message.channel.send,
-            "permission": "`ADMINISTRATOR`"
-        })
-        return
-
-
     if GuildData == None:
         createGuildData(GuildId)
         GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")
@@ -59,7 +51,7 @@ async def run(message, Arguments, Client, Discord_Bot):
             "key": key
         }
         data["used"].append(key)
-        
+
         with open("./WebAPI/apiKeys.json", "w") as file:
             file.write(json.dumps(data))
             file.close()
