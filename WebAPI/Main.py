@@ -4,13 +4,21 @@ from flask import Flask, render_template
 from flask import Response
 import os,sys
 import json 
+from flask_swagger_ui import get_swaggerui_blueprint
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 
-@app.route('/api/docs', methods=['GET'])
-def get():
-    return render_template("api.html")
+SWAGGER_URL = '/docs'
+API_URL = '/static/apiDocs.json'
+SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "RoPro API Documentation"
+    }
+)
+app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 
 @app.route('/api/v1/registerRobloxAccount', methods=['POST'])
 def api_verify():
@@ -75,3 +83,6 @@ def api_data():
         return Response('{"status": "not_found", "Found": "false"}', status=200, mimetype='application/json') 
 
     return Response('{"status": "success", "Found": "true", "discordId": '+json.loads(open(f"./VerifyQueue/{username}.txt").read())["discordId"]+', "tag": "'+json.loads(open(f"./VerifyQueue/{username}.txt").read())["tag"]+'"}', status=200, mimetype='application/json') 
+
+if __name__ == "__main__":
+	app.run(host="0.0.0.0", port=80)

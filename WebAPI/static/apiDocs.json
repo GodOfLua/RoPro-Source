@@ -1,0 +1,191 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "RoPro API",
+    "version": "1.0.0-oas3"
+  },
+  "servers": [
+    {
+      "url": "https://ropro.xyz"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Verification",
+      "description": "Everything about the verification endpoints."
+    }
+  ],
+  "paths": {
+    "/api/v1/data": {
+      "post": {
+        "tags": [
+          "Verification"
+        ],
+        "summary": "Gets the verification data of a user by the roblox username",
+        "operationId": "getData",
+        "requestBody": {
+          "description": "Gets the verification data of a user by the roblox username",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Verification"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "status, DiscordId, Discriminator, Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/verifyReply"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Missing data \\ Verification fail"
+          }
+        }
+      }
+    },
+    "/api/v1/registerRobloxAccount": {
+      "post": {
+        "tags": [
+          "Verification"
+        ],
+        "summary": "Finishes the verification of an roblox account.",
+        "operationId": "registerRobloxAccount",
+        "requestBody": {
+          "description": "Finishes the verification of an roblox account.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegVerification"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/regReply"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing data"
+          },
+          "403": {
+            "description": "Verification fail"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Verification": {
+        "required": [
+          "key",
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "GodOf_Lua"
+          },
+          "key": {
+            "type": "string",
+            "example": "API_KEY-"
+          }
+        }
+      },
+      "verifyReply": {
+        "required": [
+          "Found",
+          "discordId",
+          "status",
+          "tag"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "Found": {
+            "type": "string",
+            "example": "True"
+          },
+          "discordId": {
+            "type": "string",
+            "example": "311222306695544833"
+          },
+          "tag": {
+            "type": "string",
+            "example": "2643"
+          }
+        }
+      },
+      "regReply": {
+        "required": [
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          }
+        }
+      },
+      "RegVerification": {
+        "required": [
+          "Id",
+          "discordId",
+          "key",
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "GodOf_Lua"
+          },
+          "discordId": {
+            "type": "string",
+            "example": "311222306695544800"
+          },
+          "Id": {
+            "type": "string",
+            "example": "1"
+          },
+          "key": {
+            "type": "string",
+            "example": "API_KEY-"
+          }
+        }
+      },
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "Found": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
