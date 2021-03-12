@@ -58,6 +58,8 @@ async def run(message, Arguments, Client, Discord_Bot):
         data["keys"][GuildId] = {
             "key": key
         }
+        data["used"].append(key)
+        
         with open("./WebAPI/apiKeys.json", "w") as file:
             file.write(json.dumps(data))
             file.close()

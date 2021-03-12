@@ -13,6 +13,10 @@
     {
       "name": "Verification",
       "description": "Everything about the verification endpoints."
+    },
+    {
+      "name": "Ranking",
+      "description": "Everything about the ranking endpoints."
     }
   ],
   "paths": {
@@ -88,6 +92,56 @@
           }
         }
       }
+    },
+    "/api/v1/rank": {
+      "post": {
+        "tags": [
+          "Ranking"
+        ],
+        "summary": "Ranks an roblox account to the specified rank.",
+        "operationId": "rankAccount",
+        "requestBody": {
+          "description": "Ranks an roblox account to the specified rank. Rate limit = 60 requests a minute.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/rankR"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/regReply"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing data or api error"
+          },
+          "403": {
+            "description": "Verification fail"
+          },
+          "406": {
+            "description": "Invalid data"
+          },
+          "429": {
+            "description": "API Key reached rate limit"
+          },
+          "500": {
+            "description": "Error grabbing X-CSRF-TOKEN or error/unable to find role."
+          },
+          "503": {
+            "description": "API error or unavailable server"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -145,6 +199,34 @@
           "status": {
             "type": "string",
             "example": "success"
+          }
+        }
+      },
+      "rankR": {
+        "required": [
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "example": "API-KEY_123"
+          },
+          "cookie": {
+            "type": "string",
+            "example": "The .ROBLOSECURITY cookie"
+          },
+          "username": {
+            "type": "string",
+            "example": "GodOf_Lua"
+          },
+          "rank": {
+            "type": "integer",
+            "example": 15
+          },
+          "groupid": {
+            "type": "integer",
+            "example": 7166374
           }
         }
       },
