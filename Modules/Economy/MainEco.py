@@ -150,7 +150,7 @@ async def beg(message,Arguments):
     canManageRoles = message.author.guild_permissions.manage_roles
 
     AuthorData = GetUserEconomyData(Author.id)
-
+    time.sleep(0.5)
     Recieve_Custom_Messages = [
         "{Ping}, you found `{Amount}` on the street!",
         "{Ping}, you recieved `{Amount}` from a random stranger.",
