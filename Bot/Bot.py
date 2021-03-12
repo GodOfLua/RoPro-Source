@@ -104,4 +104,4 @@ class Bot():
     def Client(self):
         intents = discord.Intents.default()
         intents.members = True
-        return discord.Client(intents=intents)
+        return discord.AutoShardedClient(intents=intents)
