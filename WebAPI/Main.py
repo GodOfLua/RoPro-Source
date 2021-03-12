@@ -124,7 +124,7 @@ def api_rank():
     if not "key" in data or not "cookie" in data or not "username" or not "groupid" or not "rank":
         return Response('{"status": "invalid"}', status=400, mimetype='application/json')
 
-    with open("./WebAPI/apiKeys.json", "r") as f:
+    with open("./apiKeys.json", "r") as f:
         keys = json.loads(f.read())["used"]
         f.close()
 
