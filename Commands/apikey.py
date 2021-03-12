@@ -32,6 +32,7 @@ async def run(message, Arguments, Client, Discord_Bot):
             "method": message.channel.send,
             "permission": "`OWNER`"
         })
+        return
 
     with open("./WebAPI/apiKeys.json", "r") as file:
         data = json.loads(file.read())
