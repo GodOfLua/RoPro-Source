@@ -11,6 +11,6 @@ import secrets
 
 async def run(message, Arguments, Client, Discord_Bot):
     await dm.send(embed=discord.Embed(
-        description = "[Click here!](https://ropro.xyz/docs/)"
+        description = "[Click here!](https://ropro.xyz/docs/)",
         color = 0x3a9518
     ))
