@@ -1,11 +1,16 @@
 import flask
 from flask import request, jsonify
+from flask import Flask, render_template
 from flask import Response
 import os,sys
 import json 
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
+
+@app.route('/api/docs', methods=['GET'])
+def get():
+    return render_template('../RoPro_Web/apiDoc/api.html')
 
 @app.route('/api/v1/registerRobloxAccount', methods=['POST'])
 def api_verify():
