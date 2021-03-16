@@ -44,6 +44,8 @@ Discord_Bot.addCooldownIgnore(["beg", "daily", "weekly"])
 
 ## START
 
+Discord_Bot.startCaching()
+
 @Client.event 
 async def on_ready():
     printi("Bot has loaded all libraries.",start_time)
@@ -54,7 +56,6 @@ async def on_message(message):
     global LastCommand
     if message.author.bot or message.channel.type == discord.ChannelType.private:
         return  
-
 
     Server_Prefix = get_prefix(str(message.guild.id))
 
@@ -174,18 +175,6 @@ async def on_message(message):
                     description = "The bot was made serving the purpose of offering a free roblox API bot for everyone to use.",
                     color = 0x009dff
                 )) 
-
-            elif Command == "setup":
-                await Reply(embed=Embed(
-                    title = "Sent setup",
-                    description = "Check your dms! (Make sure your DMs are open.)",
-                    color = 0x00ff2a
-                )) 
-                if message.author.dm_channel:
-                    await message.author.dm_channel.send("```css\n[HOW TO SET UP THE BOT]``````diff\n+ Settings up the bot is easily done, all you have to do is to add at least 1 group to the database with the addgroup command. Usage:\naddgroup [GroupId] [Cookie]\n+ The Cookie argument is the .ROBLOSECURITY cookie of your bot. We recommed making another account and take it's cookie to use it to rank people.\n\n``````diff\n- You can check if your cookie expired with the valcookie command. Usage:\nvalcookie [Group Number]\n\n``````diff\n- If the cookie expired you can use the ugroup command to update it. Usage:\nugroup [Group Number] [Cookie]\n\n``````diff-\n To remove a group from the database, including it's cookie you use the removegroup command. Usage:\nremovegroup [Group Number]\n\n``````css\n[All the commands above require Administrator permissions.]\n\n``````css\n[The Group Number is the Id it gets assigned, The Id is always the first number infront of the name in the list of the list command.]\n\n``````css\n[Once you have added 1 group you can begin using the commands: promote,demote,setrank,list and rlist]\n\n``````diff\n- For more information you can run the command help.```")
-                else:
-                    await message.author.create_dm()
-                    await message.author.dm_channel.send("```css\n[HOW TO SET UP THE BOT]``````diff\n+ Settings up the bot is easily done, all you have to do is to add at least 1 group to the database with the addgroup command. Usage:\naddgroup [GroupId] [Cookie]\n+ The Cookie argument is the .ROBLOSECURITY cookie of your bot. We recommed making another account and take it's cookie to use it to rank people.\n\n``````diff\n- You can check if your cookie expired with the valcookie command. Usage:\nvalcookie [Group Number]\n\n``````diff\n- If the cookie expired you can use the ugroup command to update it. Usage:\nugroup [Group Number] [Cookie]\n\n``````diff-\n To remove a group from the database, including it's cookie you use the removegroup command. Usage:\nremovegroup [Group Number]\n\n``````css\n[All the commands above require Administrator permissions.]\n\n``````css\n[The Group Number is the Id it gets assigned, The Id is always the first number infront of the name in the list of the list command.]\n\n``````css\n[Once you have added 1 group you can begin using the commands: promote,demote,setrank,list and rlist]\n\n``````diff\n- For more information you can run the command help.```")
 
             elif Command == "help":
                 if len(Arguments) == 1:

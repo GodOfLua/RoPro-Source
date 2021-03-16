@@ -10,6 +10,7 @@ import requests
 import time
 from Modules.DataManagement import *
 from discord import Embed
+import threading
 
 async def status(Client):
     import asyncio
@@ -84,6 +85,17 @@ class Bot():
             GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")
 
         return GuildData
+
+    def startCaching(self):
+        spec = importlib.util.spec_from_file_location("module.name", "./Caching/VoteLeaderboard.py")
+        foo = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(foo)
+        threading.Thread(target=foo.run).start()
+
+        spec = importlib.util.spec_from_file_location("module.name", "./Leaderboards/Sorting/Sort.py")
+        foo = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(foo)
+        threading.Thread(target=foo.run).start()
 
     def __init__(self):
         self.cooldown = {}
