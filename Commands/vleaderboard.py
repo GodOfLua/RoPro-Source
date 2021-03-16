@@ -58,6 +58,6 @@ async def run(message, Arguments, Client, Discord_Bot):
         description = gen,
         color = 0xc337ac,
     )
-    embed.set_footer(text="Page "+str(page)+"; run !vlb "+str(page+1)+" to see the next page. | Powered by RoPro System · !invite")
+    embed.set_footer(text="Page "+str(page)+"; run !vlb "+str(page+1)+" to see the next page. | Refreshes every 15 seconds | Powered by RoPro System · !invite")
 
     await message.channel.send(embed=embed)
