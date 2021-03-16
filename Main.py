@@ -40,11 +40,11 @@ Discord_Bot = Bot.Bot()
 Client = Discord_Bot.Client()
 Token = Discord_Bot.Token(TestingMode)
 
-Discord_Bot.addCooldownIgnore(["beg", "daily", "weekly"])
+#Discord_Bot.addCooldownIgnore(["beg", "daily", "weekly"])
 
 ## START
 
-Discord_Bot.startCaching()
+#Discord_Bot.startCaching()
 
 @Client.event 
 async def on_ready():
@@ -181,7 +181,6 @@ async def on_message(message):
                     embed=discord.Embed(title="Help list", color=0x8000ff, description="More commands will be added in future if you want to keep track of process join our [discord](https://discord.gg/dNGrZAPgFY)\nIf you wish to use this bot in your server click [here](https://discord.com/api/oauth2/authorize?client_id=810478441224732702&permissions=8&scope=bot)")     
                     embed.add_field(name="Verification ", value="run !help verification", inline=True)
                     embed.add_field(name="Groups", value="run !help groups", inline=True)
-                    embed.add_field(name="Economy", value="run !help economy", inline=True)
                     embed.add_field(name="API", value="run !help api", inline=True)
                     embed.set_footer(text="Made by GodOf_Lua #2643 and SomethingElse#0024")
                     await Reply(embed=embed)
@@ -200,8 +199,8 @@ async def on_message(message):
                         await Reply(embed=helpr())
                     elif Arguments[1].lower() == "api" or Arguments[1].lower() == "group":
                         await Reply(embed=helpa())
-                    elif Arguments[1].lower() == "economy" or Arguments[1].lower() == "eco":
-                        await Reply(embed=helpe())
+                    #elif Arguments[1].lower() == "economy" or Arguments[1].lower() == "eco":
+                        #await Reply(embed=helpe())
 
 
             elif Command == "verify":
@@ -261,20 +260,20 @@ async def on_message(message):
                         return
                 await VerifyUser(message, Author, Command)
             #Economy Commands
-            elif Command == "bal" or Command == "balance":
-                await checkbal(message,Arguments)
-            elif Command == "dep" or Command == "deposit":
-                await deposit(message,Arguments)
-            elif Command == "withdraw":
-                await withdraw(message,Arguments)
-            elif Command == "beg":
-                await beg(message,Arguments)
-            elif Command == "pay":
-                await Payment(message,Arguments)
-            elif Command == "daily":
-                await Daily(message, Arguments)
-            elif Command == "weekly":
-                await Weekly(message, Arguments)
+            #elif Command == "bal" or Command == "balance":
+                #await checkbal(message,Arguments)
+            #elif Command == "dep" or Command == "deposit":
+                #await deposit(message,Arguments)
+            #elif Command == "withdraw":
+                #await withdraw(message,Arguments)
+            #elif Command == "beg":
+                #await beg(message,Arguments)
+            #elif Command == "pay":
+                #await Payment(message,Arguments)
+            #elif Command == "daily":
+                #await Daily(message, Arguments)
+            #elif Command == "weekly":
+                #await Weekly(message, Arguments)
         except Exception as e:
             import traceback
 
