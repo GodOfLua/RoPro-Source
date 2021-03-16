@@ -41,6 +41,7 @@ Client = Discord_Bot.Client()
 Token = Discord_Bot.Token(TestingMode)
 
 #Discord_Bot.addCooldownIgnore(["beg", "daily", "weekly"])
+Discord_Bot.ignoreCommands(["vlb", "vote", "votelb", "voteleaderboard", "vleaderboard"])
 
 ## START
 

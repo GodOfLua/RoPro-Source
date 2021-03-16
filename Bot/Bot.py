@@ -55,6 +55,9 @@ class Bot():
 
     async def procressCommands(self, message, Arguments, Command, Client, Discord_Bot):
 
+        if Command in self.ignoreCmd:
+            return
+
         try:
             spec = importlib.util.spec_from_file_location("module.name", f"./Commands/{Command}.py")
             foo = importlib.util.module_from_spec(spec)
@@ -100,10 +103,15 @@ class Bot():
     def __init__(self):
         self.cooldown = {}
         self.ignoreCooldown = []
+        self.ignoreCmd = []
 
     def addCooldownIgnore(self, array):
         for i in array:
             self.ignoreCooldown.append(i)
+
+    def ignoreCommands(self, array):
+        for i in array:
+            self.ignoreCmd.append(i)
 
     def Token(self,TestMode):
         Settings = json.loads(open("./Data/BOT_SETTINGS.json").read())

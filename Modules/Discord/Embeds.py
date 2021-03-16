@@ -23,7 +23,7 @@ def rolesEmbed(isNickname, addedRolesText, removedRolesText, nicknameText):
     return embed
 
 def missingBinds():
-    embed=discord.Embed(title="Missing records", description="There are currently no bound roblox group to this guild, run !bindgroup to bind one.", color=0xc84c4c)
+    embed=discord.Embed(title="Missing records", description="There are currently no binds recorded in this guild, run !bind to bind an role.", color=0xc84c4c)
     embed.set_footer(text=FooterText)
     return embed
 
