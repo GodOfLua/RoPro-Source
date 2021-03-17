@@ -102,3 +102,14 @@ def putAcronyms(GuildId):
     
     Data["Acronyms"] = {}
     SaveData(f"./Data/Server_Data/{GuildId}.json", Data)
+
+def putModRole(GuildId):
+
+    Data = getData(f"./Data/Server_Data/{str(GuildId)}.json")
+
+    if Data == None:
+        createGuildData(GuildId)
+        Data = getData(f"./Data/Server_Data/{str(GuildId)}.json")
+    
+    Data["modrole"] = 0
+    SaveData(f"./Data/Server_Data/{GuildId}.json", Data)

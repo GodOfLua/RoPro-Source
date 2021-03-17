@@ -11,6 +11,7 @@ import time
 from Modules.DataManagement import *
 from discord import Embed
 import threading
+from discord.utils import get
 
 async def status(Client):
     import asyncio
@@ -68,6 +69,18 @@ class Bot():
         except Exception as e:
             raise Exception(e)
 
+    def hasModRole(self, author, guild):
+        data = self.catchGuildSettings(str(guild.id))
+        if data["modrole"] == 0:
+            return None
+        role = get(guild.roles, id=data["modrole"])
+        if role == None:
+            return None
+        if role in author.roles:
+            return True 
+        else:
+            return None
+
     def catchGuildSettings(self, GuildId):
         GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")
 
@@ -85,6 +98,10 @@ class Bot():
 
         if not "PrimaryNickname" in GuildData:
             putprimary(GuildId)
+            GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")
+
+        if not "modrole" in GuildData:
+            putModRole(GuildId)
             GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")
 
         return GuildData
