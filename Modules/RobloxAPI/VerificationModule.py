@@ -438,12 +438,15 @@ async def bind(message, Arguments):
             "method": message.channel.send,
             "nameofError": "GroupId"
         })
+        return
 
     if not Role:
         await throw("roleError", ReplyMethod)
+        return
 
     if not RankRange:
         await throw("rankRangeError", ReplyMethod)
+        return
 
     if not GroupId in SpecifiedGuildData["BOUND_GROUPS"]:
         GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")

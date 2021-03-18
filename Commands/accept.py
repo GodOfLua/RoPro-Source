@@ -55,6 +55,7 @@ async def run(message, Arguments, Client, Discord_Bot):
             "method": message.channel.send,
             "nameofError": "GroupId"
         })
+        return
 
     Admin = Author.guild_permissions.administrator
 

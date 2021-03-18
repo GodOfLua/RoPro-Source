@@ -86,7 +86,7 @@ async def on_message(message):
             # Methods
 
             await Discord_Bot.procressCommands(message, Arguments, Command, Client, Discord_Bot)
-
+            
             if Command == "cprefix":
 
                 if IsAdministrator:
