@@ -121,6 +121,11 @@ def permissionError(data):
     embed.set_footer(text=FooterText)
     return embed
 
+def roleError(data):
+    embed=discord.Embed(description="User is missing the following roles to run the specified command: "+data["permission"], color=0xc84c4c)
+    embed.set_footer(text=FooterText)
+    return embed
+
 def bindingEmbed(data):
     embed=discord.Embed(title="Guild bindings", description=data, color=0xc337ac)
     embed.set_footer(text=FooterText)
@@ -178,6 +183,8 @@ async def throw(code, Method):
         await Method(embed=rankRangeError())
     elif code == "permissionError":
         await Method["method"](embed=permissionError(Method))
+    elif code == "roleError2":
+        await Method["method"](embed=roleError(Method))
     elif code == "bindError":
         await Method(embed=bindError)
     

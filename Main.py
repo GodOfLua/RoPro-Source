@@ -236,12 +236,6 @@ async def on_message(message):
                 await setprimary(message, Arguments)
             elif Command == "magicwords":
                 await Reply(embed=magicword())
-            elif Command == "addacronym":
-                await addAcronym(message, Arguments)
-            elif Command == "delacronym":
-                await delAcronym(message, Arguments)
-            elif Command == "acronyms":
-                await acronyms(message, Arguments)
             elif Command == "update":
                 try: 
                     if canManageRoles:

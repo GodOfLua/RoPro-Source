@@ -72,14 +72,17 @@ class Bot():
     def hasModRole(self, author, guild):
         data = self.catchGuildSettings(str(guild.id))
         if data["modrole"] == 0:
-            return None
+            print("a")
+            return [None, 0, None]
         role = get(guild.roles, id=data["modrole"])
         if role == None:
-            return None
+            print("x")
+            return [None, None, None]
         if role in author.roles:
-            return True 
+            print("z")
+            return [True, data["modrole"], role]
         else:
-            return None
+            return [None, data["modrole"], role]
 
     def catchGuildSettings(self, GuildId):
         GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")
