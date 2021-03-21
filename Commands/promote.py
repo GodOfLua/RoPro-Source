@@ -32,20 +32,19 @@ def groupexist(serverid,groupid):
     else:
         return "unavailable"
 
-async def setrank(message, Arguments):
+async def run(message, Arguments, Client, Discord_Bot):
 
-    if len(Arguments) < 4 or (len(Arguments) < 3 and len(message.mentions) < 1):
+    if len(Arguments) < 3 or (len(Arguments) < 2 and len(message.mentions) < 1):
         await throw("argumentError", {
             "method": message.channel.send,
-            "arguments": "[GroupId] [Username] [Rank]",
-            "command": "setrank",
-            "length": 3,
+            "arguments": "[GroupId] [Username]",
+            "command": "promote",
+            "length": 2,
             "pronounce": "Arguments"
         })
         return
 
     GroupId = Arguments[1]
-    Rank = Arguments[3]
 
     if not GroupId.isnumeric():
         await throw("numericError", {
@@ -54,23 +53,28 @@ async def setrank(message, Arguments):
         })
         return
 
-    if not Rank.isnumeric():
-        await throw("numericError", {
-            "method": message.channel.send,
-            "nameofError": "Rank"
-        })
-        return
-
     Author = message.author
     Guild = message.guild
-    Admin = Author.guild_permissions.manage_roles
+    Admin = Author.guild_permissions.administrator
+    Role = Discord_Bot.hasModRole(message.author, message.guild)
+    RoleId = Role[1]
+    HasRole = Role[0]
+    role = Role[2]
 
-    if not Admin:
-        await throw("permissionError", {
-            "method": message.channel.send,
-            "permission": "`MANAGE_ROLES`"
-        })
-        return
+    if RoleId == 0:
+        if not Admin:
+            await throw("permissionError", {
+                "method": message.channel.send,
+                "permission": "`ADMINISTRATOR`"
+            })
+            return
+    else:
+        if not HasRole:
+            await throw("roleError2", {
+                "method": message.channel.send,
+                "permission": role.mention
+            })
+            return
 
     GuildId = str(Guild.id)
     AuthorId = str(Author.id)
@@ -209,7 +213,7 @@ async def setrank(message, Arguments):
     # Check bot rank
 
     if groupResponse["data"][UserIndex]["role"]["rank"] >= botGroupResponse["data"][Index]["role"]["rank"]:
-        embed.description = "User role is higher than or same with bot role."
+        embed.description = "User role to promote to is higher than or same with bot role."
         embed.color = 0xc84c4c
         await mainMSG.edit(embed=embed)
         return
@@ -226,22 +230,16 @@ async def setrank(message, Arguments):
                 break
             RoleIndex += 1
 
-        roleDesg = 0
-        for i in rolesResponse["roles"]:
-            if i["rank"] == int(Rank):
-                break
-            roleDesg += 1
-
         try:
-            rolesResponse["roles"][roleDesg]
+            rolesResponse["roles"][RoleIndex+1]
         except:
-            embed.description = "I were unable to find the role with the specifiedd rank."
+            embed.description = "User has already highest role."
             embed.color = 0xc84c4c
             await mainMSG.edit(embed=embed)
             return 
 
-        if rolesResponse["roles"][roleDesg]["rank"] >= botGroupResponse["data"][Index]["role"]["rank"]:
-            embed.description = "Role to set rank to is higher than or same with bot role."
+        if rolesResponse["roles"][RoleIndex+1]["rank"] >= botGroupResponse["data"][Index]["role"]["rank"]:
+            embed.description = "Role to promote to is higher than or same with bot role."
             embed.color = 0xc84c4c
             await mainMSG.edit(embed=embed)
             return           
@@ -252,100 +250,17 @@ async def setrank(message, Arguments):
     # Rank User
 
     rankRequest = requests.patch("https://groups.roblox.com/v1/groups/"+str(groupExist["id"])+"/users/"+str(userResponse["Id"]), data=json.dumps({
-        "roleId": rolesResponse["roles"][roleDesg]["id"]
+        "roleId": rolesResponse["roles"][RoleIndex+1]["id"]
     }), headers={"content-type":"application/json","X-CSRF-TOKEN": x_csrf_token}, cookies={".ROBLOSECURITY": cookie})
 
     if rankRequest.status_code == 200:
-        embed.description = userResponse["Username"]+" role has been changed to "+rolesResponse["roles"][roleDesg]["name"]
+        embed.description = userResponse["Username"]+" has been promoted to "+rolesResponse["roles"][RoleIndex+1]["name"]
         embed.color = 0x3a9518
         await mainMSG.edit(embed=embed)
     else:
-        embed.description = "Unable to set the rank of the user to the specified one."
+        embed.description = "Unable to promote user."
         embed.color = 0xc84c4c
         await mainMSG.edit(embed=embed)
         return
 
-    return True 
-
-def valCookie(cookie):
-    x_csrf_token = get_x_csrf_token(cookie)
-
-    if x_csrf_token:
-        network = requests.get("https://api.roblox.com/currency/balance", headers={"X-CSRF-TOKEN": x_csrf_token}, cookies={".ROBLOSECURITY": cookie})
-        return network.status_code
-    else:
-        return "Unable to fetch X_CSRF_TOKEN"
-
-async def checkCookie(message, Arguments):
-
-    if len(Arguments) < 2:
-        await throw("argumentError", {
-            "method": message.channel.send,
-            "arguments": "[GroupId]",
-            "command": "valcookie",
-            "length": 1,
-            "pronounce": "Argument"
-        })
-        return
-
-    GroupId = Arguments[1]
-
-    if not GroupId.isnumeric():
-        await throw("numericError", {
-            "method": message.channel.send,
-            "nameofError": "GroupId"
-        })
-
-    Author = message.author
-    Guild = message.guild
-    Admin = Author.guild_permissions.administrator
-
-    if not Admin:
-        await throw("permissionError", {
-            "method": message.channel.send,
-            "permission": "`ADMINISTRATOR`"
-        })
-        return
-
-    GuildId = str(Guild.id)
-    AuthorId = str(Author.id)
-
-    GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")
-
-    ReplyMethod = message.channel.send
-
-    if not GuildData:
-        createGuildData(GuildId)
-        GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")
-
-    mainMsg = await throw("workingMethod", message.channel.send)
-
-    if not GroupId in GuildData["BOUND_GROUPS"]:
-        await mainMsg.edit(embed=discord.Embed(
-            title = "Missing records",
-            description = "This group wasn't bound yet or has set a cookie. Call !setcookie or !bind to fix that.",
-            color = 0xc84c4c
-        ))
-        return
-    
-    if not "COOKIE" in GuildData["BOUND_GROUPS"][GroupId]:
-        await mainMsg.edit(embed=discord.Embed(
-            title = "Missing records",
-            description = "There was no cookie set yet to this group. Call !setcookie to fix that.",
-            color = 0xc84c4c
-        ))
-        return
-
-    ret = valCookie(GuildData["BOUND_GROUPS"][GroupId]["COOKIE"])
-    if ret == 200:
-        await mainMsg.edit(embed=discord.Embed(
-            title = "Valid cookie",
-            description = "This cookie is valid.",
-            color = 0x3a9518
-        ))
-    else:
-        await mainMsg.edit(embed=discord.Embed(
-            title = "Invalid cookie or api error.",
-            description = "This cookie is invalid or an API error occoured.",
-            color = 0xc84c4c
-        ))
+    return True
