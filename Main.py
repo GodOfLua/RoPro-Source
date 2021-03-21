@@ -119,16 +119,12 @@ async def on_message(message):
                         description = "Missing following permissions to manage server prefix: ADMINISTRATOR",
                         color = 0xff7b00
                     ))
-            elif Command == "setverifychannel":
-                await setVerifyChannel(message, Arguments)
             elif Command == "setcookie":
                 await setcookie(message, Arguments, Client)
             elif Command == "list":
                 await listr(message, Arguments)
             elif Command == "valcookie":
                 await checkCookie(message, Arguments)
-            elif Command == "setnickname":
-                await setNickname(message, Arguments)
             elif Command == "promote":
                 update = await promote(message, Arguments)
                 try:
@@ -224,16 +220,8 @@ async def on_message(message):
                 await unbindAccount(message, Arguments)
             elif Command == "userlist":
                 await userList(message, Arguments)
-            elif Command == "bind":
-                await bind(message, Arguments)
-            elif Command == "unbind":
-                await unbind(message, Arguments)
             elif Command == "getroles":
                 await VerifyUser(message, None, Command)
-            elif Command == "bindings" or Command == "binds":
-                await listBindings(message, Arguments)
-            elif Command == "setprimary":
-                await setprimary(message, Arguments)
             elif Command == "magicwords":
                 await Reply(embed=magicword())
             elif Command == "update":
