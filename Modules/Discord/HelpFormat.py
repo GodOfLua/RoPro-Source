@@ -3,6 +3,8 @@ import discord
 def helpv():
     embed=discord.Embed(title="Verification Module commands", description='''
 
+    **This is page 1 say !help verification 2 to see the next page.**
+
     User commands:
 
     `verify`    **->**      Verifys an user if no account was bound, you will be prompted to verify your account.
@@ -24,18 +26,16 @@ def helpv():
     `setnickname <StringFormat>`   **->**  Changes the format users gets their username assigned default is {roblox_name} view !magicwords to see all of them.
     `setprimary`<GroupId>`  **->**  Changes the group the bot focuses on when setting a username of a user. (This is only important if you use {role} magic word.)
 
-    Total verifcation module commands: 16
-
     More commands will be added in future if you want to keep track of process join our [discord](https://discord.gg/dNGrZAPgFY)
     If you wish to use this bot in your server click [here](https://discord.com/api/oauth2/authorize?client_id=810478441224732702&permissions=8&scope=bot)
-
-    This is page 1 say !help verification 2 to see the next page.
     ''', color=0x8000ff)  
     embed.set_footer(text="Made by GodOf_Lua #2643 and SomethingElse#0024")
     return embed
 
 def helpv2():
     embed=discord.Embed(title="Verification Module commands", description='''
+
+    **This is page 2 say !help verification to see the previous page.**
 
     Costumization commands:
 
@@ -52,12 +52,8 @@ def helpv2():
     `RankRange`     **->**      As example 0:255 which would specify a minimum of rank required 0 and maximum able to get the role 255. You can also just said one number this will be then the min and max at the same time, which means only that rank would get the role.
     `StringFormat`  **->**      An specific format you set. Examples: {role} | {roblox_name}, {roblox_name}
 
-    Total verifcation module commands: 16
-
     More commands will be added in future if you want to keep track of process join our [discord](https://discord.gg/dNGrZAPgFY)
     If you wish to use this bot in your server click [here](https://discord.com/api/oauth2/authorize?client_id=810478441224732702&permissions=8&scope=bot)
-
-    This is page 2 say !help verification to see the previous page.
     ''', color=0x8000ff)  
     embed.set_footer(text="Made by GodOf_Lua #2643 and SomethingElse#0024")
     return embed
@@ -71,6 +67,7 @@ def helpr():
     Configuration commands:
 
     `setcookie <GroupId>`       **->**      Prompts you to enter the bot cookie used for ranking. (IT'S RECOMMENDED TO MAKE AN SEPERATE ROBLOX ACCOUNT FOR THAT PURPOSE.)
+    `valcookie <GroupId>`   **->**  Allows you to validate the cookie for the specific group.
 
     Group management:
 
