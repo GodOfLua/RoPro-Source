@@ -49,31 +49,37 @@ def helpv():
 
 def helpr():
     embed=discord.Embed(title="Groups Module commands", description='''
-    User commands:
+    More commands will be added in future if you want to keep track of process join our [discord](https://discord.gg/dNGrZAPgFY)
+    If you wish to use this bot in your server click [here](https://discord.com/api/oauth2/authorize?client_id=810478441224732702&permissions=8&scope=bot)
+    ''', color=0x8000ff)  
+    embed.add_field(name="User commands", value='''
 
     `list <GroupId>`    **->**      Responds with all roles from a group.
+    ''', inline=False)
 
-    Configuration commands:
+    embed.add_field(name="Configuration commands", value='''
 
     `setcookie <GroupId>`       **->**      Prompts you to enter the bot cookie used for ranking. (IT'S RECOMMENDED TO MAKE AN SEPERATE ROBLOX ACCOUNT FOR THAT PURPOSE.)
     `valcookie <GroupId>`   **->**  Allows you to validate the cookie for the specific group.
+    ''', inline=False)
 
-    Group management:
+    embed.add_field(name="Group management", value='''
 
     `shout <GroupId>`    **->**  Responds with the shout from an group. (PLEASE NOTE: THIS COMMAND IS UNRELIABLE AS ROBLOX API FOR THAT DOSEN'T ALWAYS FUNCTION PROPERLY)
     `setshout <GroupId> <Shout>`    **->**  Updates the shout of the specified group.
-    
-    User management:
+    `requests <GroupId>`    **->**  Responds with all join requests of the specified group.
+    `accept <GroupId> <Username | UserId>` **->**   Accepts an join request within the specified group.
+    `decline <GroupId> <Username | UserId>` **->**   Declines an join request within the specified group.
+    ''', inline=False)
+
+    embed.add_field(name="User management", value='''
 
     `promote <GroupId> <Username>`      **->**      Promotes an user to the next higher role in the given group.
     `demote <GroupId> <Username>`      **->**      Demotets an user to the next lower role in the given group.
     `setrank <GroupId> <Username> <Rank>`      **->**      Changes the rank from an user to the specified one.
     `exile <GroupId> <Username>`    **->**  Kicks an user from the specified group.
 
-    More commands will be added in future if you want to keep track of process join our [discord](https://discord.gg/dNGrZAPgFY)
-    If you wish to use this bot in your server click [here](https://discord.com/api/oauth2/authorize?client_id=810478441224732702&permissions=8&scope=bot)
-    ''', color=0x8000ff)  
-    embed.set_footer(text="Made by GodOf_Lua #2643 and SomethingElse#0024")
+    ''', inline=False)
     return embed
 
 def helpa():
