@@ -16,66 +16,6 @@ from discord.utils import get
 import discord
 import requests
 
-async def setprimary(message, Arguments):
-
-    if len(Arguments) < 2:
-        await throw("argumentError", {
-            "method": message.channel.send,
-            "arguments": "<GroupId or say none>",
-            "command": "setprimary",
-            "length": 1,
-            "pronounce": "Argument"
-        })
-        return
-
-    Author = message.author
-    Guild = message.guild
-    Admin = Author.guild_permissions.administrator
-
-    if not Admin:
-        await throw("permissionError", {
-            "method": message.channel.send,
-            "permission": "`ADMINISTRATOR`"
-        })
-        return
-
-    GuildId = str(Guild.id)
-    AuthorId = str(Author.id)
-
-    GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")
-
-    ReplyMethod = message.channel.send
-
-    if GuildData == None:
-        createGuildData(GuildId)
-        GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")
-
-    if not "PrimaryNickname" in GuildData:
-        putprimary(GuildId)
-        GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")
-
-    if not Arguments[1].isnumeric() and Arguments[1] != "none":
-        await throw("numericError", {
-            "method": message.channel.send,
-            "nameofError": "GroupId"
-        })
-
-    GuildData["PrimaryNickname"] = Arguments[1]
-    SaveData(f"./Data/Server_Data/{str(GuildId)}.json", GuildData)
-
-    if Arguments[1] == "none":
-        await message.channel.send(embed=discord.Embed(
-            description = "I will now prioritize all groups equal. (This is only important if your using the magic word {role})",
-            footer = "Powered by RoPro Verification System · !invite",
-            color = 0x3a9518
-        ))
-    else:
-        await message.channel.send(embed=discord.Embed(
-            description = "I will now prioritize this group in the nickname format. (This is only important if your using the magic word {role})",
-            footer = "Powered by RoPro Verification System · !invite",
-            color = 0x3a9518
-        ))
-
 async def setVerifyChannel(message, Arguments):
 
     if len(Arguments) < 2 and len(message.channel_mentions) < 1:
