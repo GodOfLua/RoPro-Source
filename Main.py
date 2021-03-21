@@ -19,7 +19,6 @@ from discord.utils import get
 
 from Modules.RobloxAPI.VerificationModule import Verification as VerifyUser
 from Modules.RobloxAPI.VerificationModule import *
-from Modules.RobloxAPI.RankingModule import *
 from Modules.RobloxAPI.User import *
 from Modules.Economy.MainEco import *
 
@@ -119,39 +118,8 @@ async def on_message(message):
                         description = "Missing following permissions to manage server prefix: ADMINISTRATOR",
                         color = 0xff7b00
                     ))
-            elif Command == "setcookie":
-                await setcookie(message, Arguments, Client)
             elif Command == "list":
                 await listr(message, Arguments)
-            elif Command == "valcookie":
-                await checkCookie(message, Arguments)
-            elif Command == "promote":
-                update = await promote(message, Arguments)
-                try:
-                    Arguments[2]
-                except:
-                    return
-                member = get(message.guild.members, display_name=Arguments[2])
-                if member and canManageRoles and update:
-                    await VerifyUser(message, member, Command)
-            elif Command == "demote":
-                await demote(message, Arguments)
-                try:
-                    Arguments[2]
-                except:
-                    return
-                member = get(message.guild.members, display_name=Arguments[2])
-                if member:
-                    await VerifyUser(message, member, Command)
-            elif Command == "setrank":
-                await setrank(message, Arguments)
-                try:
-                    Arguments[2]
-                except:
-                    return
-                member = get(message.guild.members, display_name=Arguments[2])
-                if member:
-                    await VerifyUser(message, member, Command)
             elif Command == "invite":
                 await Reply(embed=Embed(
                     title = "Invite our bot!",
@@ -183,15 +151,7 @@ async def on_message(message):
                     await Reply(embed=embed)
                 else:
                     if Arguments[1].lower() == "verification" or Arguments[1].lower() == "verify":     
-                        try:
-                            Arguments[2]
-                        except:
-                            await Reply(embed=helpv())
-                            return
-                        if Arguments[2] == "2":
-                            await Reply(embed=helpv2())
-                        else:
-                            await Reply(embed=helpv())
+                        await Reply(embed=helpv())
                     elif Arguments[1].lower() == "groups" or Arguments[1].lower() == "group":
                         await Reply(embed=helpr())
                     elif Arguments[1].lower() == "api" or Arguments[1].lower() == "group":
