@@ -32,6 +32,15 @@ def groupexist(serverid,groupid):
     else:
         return "unavailable"
 
+def valCookie(cookie):
+    x_csrf_token = get_x_csrf_token(cookie)
+
+    if x_csrf_token:
+        network = requests.get("https://api.roblox.com/currency/balance", headers={"X-CSRF-TOKEN": x_csrf_token}, cookies={".ROBLOSECURITY": cookie})
+        return network.status_code
+    else:
+        return "Unable to fetch X_CSRF_TOKEN"
+
 async def run(message, Arguments, Client, Discord_Bot):
 
     if len(Arguments) < 4 or (len(Arguments) < 3 and len(message.mentions) < 1):

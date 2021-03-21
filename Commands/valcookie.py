@@ -41,7 +41,7 @@ def valCookie(cookie):
     else:
         return "Unable to fetch X_CSRF_TOKEN"
 
-async def checkCookie(message, Arguments):
+async def run(message, Arguments, *args):
 
     if len(Arguments) < 2:
         await throw("argumentError", {
