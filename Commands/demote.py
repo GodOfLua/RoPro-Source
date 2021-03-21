@@ -32,7 +32,7 @@ def groupexist(serverid,groupid):
     else:
         return "unavailable"
 
-async def demote(message, Arguments, Client, Discord_Bot):
+async def run(message, Arguments, Client, Discord_Bot):
 
     if len(Arguments) < 3 or (len(Arguments) < 2 and len(message.mentions) < 1):
         await throw("argumentError", {
