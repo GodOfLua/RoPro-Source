@@ -16,67 +16,6 @@ from discord.utils import get
 import discord
 import requests
 
-async def setNickname(message, Arguments):
-
-    if len(Arguments) < 2:
-        await throw("argumentError", {
-            "method": message.channel.send,
-            "arguments": "<StringFormat (Example: {rank} | {roname}, for more magic words view !magicwords)>",
-            "command": "setnickname",
-            "length": 1,
-            "pronounce": "Argument"
-        })
-        return
-
-    Author = message.author
-    Guild = message.guild
-    Admin = Author.guild_permissions.administrator
-
-    if not Admin:
-        await throw("permissionError", {
-            "method": message.channel.send,
-            "permission": "`ADMINISTRATOR`"
-        })
-        return
-
-    GuildId = str(Guild.id)
-    AuthorId = str(Author.id)
-
-    GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")
-
-    ReplyMethod = message.channel.send
-
-    if GuildData == None:
-        createGuildData(GuildId)
-        GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")
-
-    if not "NicknameFormat" in GuildData:
-        putnickformat(GuildId)
-        GuildData = getData(f"./Data/Server_Data/{str(GuildId)}.json")
-
-    if len(message.content[0+len(Arguments[0])+1:len(message.content)]) < 1:
-        GuildData["NicknameFormat"] = "{roblox_name}"
-        await message.channel.send(embed=discord.Embed(
-            description = "I've changed the nickname format to {roblox_name} (DEFAULT). Every member who verifies gets their nickname now set by this format.\n\nExample of appearance:\nGodOf_Lua",
-            footer = "Powered by RoPro Verification System · !invite",
-            color = 0x3a9518
-        ))
-        return
-
-    GuildData["NicknameFormat"] = message.content[0+len(Arguments[0])+1:len(message.content)]
-    SaveData(f"./Data/Server_Data/{str(GuildId)}.json", GuildData)
-
-    role = "Owner"
-    roblox_name = "GodOf_Lua"
-    discord_name = "GodOf_Lua"
-    discord_tag = "#2643"
-
-    await message.channel.send(embed=discord.Embed(
-        description = "I've changed the nickname format to "+message.content[0+len(Arguments[0])+1:len(message.content)]+". Every member who verifies gets their nickname now set by this format.\n\nExample of appearance:\n"+message.content[0+len(Arguments[0])+1:len(message.content)].format(role=role, roblox_name=roblox_name, discord_name=discord_name, discord_tag=discord_tag),
-        footer = "Powered by RoPro Verification System · !invite",
-        color = 0x3a9518
-    ))
-
 async def setprimary(message, Arguments):
 
     if len(Arguments) < 2:
