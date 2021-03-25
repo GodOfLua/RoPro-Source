@@ -74,9 +74,19 @@ async def run(message, Arguments, Client, Discord_Bot):
     Guild = message.guild
     Admin = Author.guild_permissions.administrator
     Role = Discord_Bot.hasModRole(message.author, message.guild)
+    AuthorId = str(Author.id)
     RoleId = Role[1]
     HasRole = Role[0]
     role = Role[2]
+
+    UserData = getData(f"./Data/User_Data/{str(AuthorId)}.json")
+    if UserData == None:
+        createAuthorData(AuthorId)
+        UserData = getData(f"./Data/User_Data/{str(AuthorId)}.json")
+
+    if len(UserData["BoundAccounts"]) < 1:
+        await throw("noBoundAccount", message.channel.send)
+        return
 
     if RoleId == 0:
         if not Admin:
@@ -129,6 +139,17 @@ async def run(message, Arguments, Client, Discord_Bot):
     except:
         pass
 
+    try:
+        ac = UserData["BoundAccounts"][UserData["SelectedAccountIndex"][0]]
+    except:
+        ac = UserData["BoundAccounts"][UserData["SelectedAccountIndex"]]
+
+    if user.lower() == ac["Username"].lower():
+        embed.description = "You cannot change your own rank."
+        embed.color = 0xc84c4c
+        await mainMSG.edit(embed=embed)
+        return
+
     # Check if user exists
 
     userResponse = requests.get("http://api.roblox.com/users/get-by-username?username="+user)
@@ -175,6 +196,35 @@ async def run(message, Arguments, Client, Discord_Bot):
             return
     else:
         await mainMSG.edit(embed=apiError())
+        return
+
+    # Check Rank
+
+    groupResponse2 = requests.get("https://groups.roblox.com/v1/users/"+str(ac["Id"])+"/groups/roles?limit=100")
+
+    if groupResponse2.status_code == 200:
+        Found = False
+        UserIndex2 = 0
+        groupResponse2 = json.loads(groupResponse2.text)
+        for i in groupResponse2["data"]:
+            if i["group"]["name"] == groupExist["name"]:
+                Found = True 
+                break
+            UserIndex2 += 1
+
+        if Found == False:
+            embed.description = "You require to be in the group in oroder to change someone rank."
+            embed.color = 0xc84c4c
+            await mainMSG.edit(embed=embed)
+            return
+    else:
+        await mainMSG.edit(embed=apiError())
+        return
+
+    if groupResponse["data"][UserIndex]["role"]["rank"] == groupResponse["data"][UserIndex2]["role"]["rank"]:
+        embed.description = "You cannot promote someone that is the same rank in the group."
+        embed.color = 0xc84c4c
+        await mainMSG.edit(embed=embed)
         return
 
     # Verify Cookie

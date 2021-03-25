@@ -32,6 +32,12 @@ def missingAccBinds():
     embed.set_footer(text=FooterText)
     return embed
 
+def missing():
+    embed=discord.Embed(title="Missing records", description="Make sure to have an bound roblox account (This is for security reasons), run !bindaccount or !verify to bind one.", color=0xc84c4c)
+    embed.set_footer(text=FooterText)
+    return embed
+
+
 def working():
     embed=discord.Embed(description="Working..", color=0xba981c)
     embed.set_footer(text=FooterText)
@@ -151,6 +157,8 @@ async def throw(code, Method):
         await Method(embed=missingBinds())
     elif code == "noBoundAccounts":
         await Method(embed=missingAccBinds())
+    elif code == "noBoundAccount":
+        await Method(embed=missing())
     elif code == "workingMethod":
         return await Method(embed=working())
     elif code == "apiError":
