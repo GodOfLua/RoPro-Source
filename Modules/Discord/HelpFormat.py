@@ -23,6 +23,7 @@ def helpv():
     `unbind <GroupId> <RoleMention | RoleId | RoleName>`        **->**      Unbinds an rank from an specific role. (ROLE MUST EXIST)
     `bindings <OPTIONAL: GroupId>`        **->**      Responds with all bindings from the guild/group.
     `magicwords`    **->**  Responds with an list of magic words able to be used in the nickname command.
+    `autobind <GroupId>`    **->**  Creates binds by the roles in the roblox group if unable to find a discord role it will create a new one.
     ''', inline=False)
 
     embed.add_field(name="Costumization commands", value='''
