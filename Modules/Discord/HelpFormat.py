@@ -26,6 +26,11 @@ def helpv():
     `autobind <GroupId>`    **->**  Creates binds by the roles in the roblox group if unable to find a discord role it will create a new one.
     ''', inline=False)
 
+    embed.add_field(name="Verify role commands", value='''
+
+    `unverifiedrole <OPTIONAL: RoleMention | RoleId | RoleName` **->**  Sets the specified role as unverified role or takes a existing one/creates one as unverified role.
+    ''', inline=False)
+
     embed.add_field(name="Costumization commands", value='''
 
     `setnickname <StringFormat>`   **->**  Changes the format users gets their username assigned default is {roblox_name} view !magicwords to see all of them.

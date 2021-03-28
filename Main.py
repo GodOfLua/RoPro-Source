@@ -27,6 +27,10 @@ from Modules.Economy.MainEco import *
 from Modules.Discord.HelpFormat import *
 from Bot import Bot
 
+# Events
+from Events.on_member_join import run as runJ
+from Events.on_guild_join import run as runG
+
 # Testing
 
 TestingMode = True
@@ -143,7 +147,7 @@ async def on_message(message):
 
             elif Command == "help":
                 if len(Arguments) == 1:
-                    embed=discord.Embed(title="Help list", color=0x8000ff, description="More commands will be added in future if you want to keep track of process join our [discord](https://discord.gg/dNGrZAPgFY)\nIf you wish to use this bot in your server click [here](https://discord.com/api/oauth2/authorize?client_id=810478441224732702&permissions=8&scope=bot)")     
+                    embed=discord.Embed(title="Help list", color=0x8000ff, description="Run settings to view server settings.\n\nMore commands will be added in future if you want to keep track of process join our [discord](https://discord.gg/dNGrZAPgFY)\nIf you wish to use this bot in your server click [here](https://discord.com/api/oauth2/authorize?client_id=810478441224732702&permissions=8&scope=bot)")     
                     embed.add_field(name="Verification ", value="run !help verification", inline=True)
                     embed.add_field(name="Groups", value="run !help groups", inline=True)
                     embed.add_field(name="API", value="run !help api", inline=True)
@@ -247,5 +251,13 @@ async def on_message(message):
             '''
             with open(f"./Data/Error_Logs/LOG_{str(round(time.time()))}.LOG","a+") as f:
                 f.write(ErrorMessage)
+
+@Client.event 
+async def on_member_join(member):
+    await runJ(member, Client, Discord_Bot)
+
+@Client.event 
+async def on_guild_join(guild):
+    await runG(guild, Client, Discord_Bot)
     
 Client.run(Token)

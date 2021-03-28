@@ -36,6 +36,8 @@ def createGuildData(GuildId):
             "VerifyChannel": "none",
             "NicknameFormat": "{roblox_name}",
             "Acronyms": {},
+            "modrole": 0,
+            "UnverifiedRole": 0,
         }
         SaveData(f"./Data/Server_Data/{str(GuildId)}.json", Data)
 
