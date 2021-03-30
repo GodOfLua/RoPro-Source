@@ -11,6 +11,9 @@ async def run(message, Arguments, Client, Discord_Bot):
     verificationChannel = "None"
     primary = "None"
 
+    if not "UnverifiedRole" in settings:
+        settings["UnverifiedRole"] = 0    
+
     if settings["VerifyChannel"] != "none":
         if get(message.guild.channels, id=int(settings["VerifyChannel"])):
             verificationChannel = get(message.guild.channels, id=int(settings["VerifyChannel"])).mention
