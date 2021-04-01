@@ -29,6 +29,7 @@ def helpv():
     embed.add_field(name="Verify role commands", value='''
 
     `unverifiedrole <OPTIONAL: RoleMention | RoleId | RoleName` **->**  Sets the specified role as unverified role or takes a existing one/creates one as unverified role.
+    `verifiedrole <OPTIONAL: RoleMention | RoleId | RoleName` **->**  Sets the specified role as verified role or takes a existing one/creates one as verified role.
     ''', inline=False)
 
     embed.add_field(name="Costumization commands", value='''
