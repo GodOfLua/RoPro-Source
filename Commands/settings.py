@@ -7,12 +7,16 @@ from discord.utils import get
 async def run(message, Arguments, Client, Discord_Bot):
     settings = Discord_Bot.catchGuildSettings(str(message.guild.id))
     unverifiedRole = "None"
+    VerifiedRole = "None"
     count = 0
     verificationChannel = "None"
     primary = "None"
 
     if not "UnverifiedRole" in settings:
-        settings["UnverifiedRole"] = 0    
+        settings["UnverifiedRole"] = 0 
+
+    if not "VerifiedRole" in settings:
+        settings["VerifiedRole"] = 0    
 
     if settings["VerifyChannel"] != "none":
         if get(message.guild.channels, id=int(settings["VerifyChannel"])):
@@ -21,6 +25,10 @@ async def run(message, Arguments, Client, Discord_Bot):
     if int(settings["UnverifiedRole"]) != 0:
         if get(message.guild.roles, id=int(settings["UnverifiedRole"])):
             unverifiedRole = get(message.guild.roles, id=int(settings["UnverifiedRole"])).mention
+
+    if int(settings["VerifiedRole"]) != 0:
+        if get(message.guild.roles, id=int(settings["VerifiedRole"])):
+            VerifiedRole = get(message.guild.roles, id=int(settings["VerifiedRole"])).mention
 
     if settings["PrimaryNickname"] != "none":
         primary = settings["PrimaryNickname"]
@@ -37,5 +45,6 @@ async def run(message, Arguments, Client, Discord_Bot):
     embed.add_field(name="Primary group", value=primary, inline=False)
     embed.add_field(name="Nickames", value="Enabled", inline=False)
     embed.add_field(name="Unverified Role", value=unverifiedRole, inline=False)
+    embed.add_field(name="Verified Role", value=VerifiedRole, inline=False)
 
     await message.channel.send(embed=embed)

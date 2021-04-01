@@ -33,7 +33,7 @@ from Events.on_guild_join import run as runG
 
 # Testing
 
-TestingMode = False
+TestingMode = True
 start_time = time.time()
 
 LastCommand = {}

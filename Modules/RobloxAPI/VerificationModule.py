@@ -94,6 +94,16 @@ async def Verification(message, auth, Command):
                 RemovedRoles = RemovedRoles+unverifiedRole.mention
             except:
                 pass
+
+    VerifiedRole = get(message.guild.roles, id=GuildData["VerifiedRole"])
+
+    if VerifiedRole:
+        if not VerifiedRole in Author.roles:
+            try:
+                await Author.add_roles(VerifiedRole)
+                AddedRoles = AddedRoles+VerifiedRole.mention
+            except:
+                pass
     
     userGroups = requests.get("https://groups.roblox.com/v1/users/"+str(boundAccount["Id"])+"/groups/roles?limit=100")
 
