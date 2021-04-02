@@ -213,7 +213,7 @@ async def run(message, Arguments, Client, Discord_Bot):
             UserIndex2 += 1
 
         if Found == False:
-            embed.description = "You require to be in the group in oroder to change someone rank."
+            embed.description = "You require to be in the group in order to change someone rank."
             embed.color = 0xc84c4c
             await mainMSG.edit(embed=embed)
             return
@@ -306,7 +306,7 @@ async def run(message, Arguments, Client, Discord_Bot):
         try:
             rolesResponse["roles"][roleDesg]
         except:
-            embed.description = "I were unable to find the role with the specifiedd rank."
+            embed.description = "I was unable to find the role with the specified rank."
             embed.color = 0xc84c4c
             await mainMSG.edit(embed=embed)
             return 
