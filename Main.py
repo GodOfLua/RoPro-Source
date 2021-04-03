@@ -66,7 +66,7 @@ async def on_message(message):
     if message.content[0:len(Server_Prefix)] == Server_Prefix:
         try:
             Arguments = message.content.split(" ")
-            Command = Arguments[0][len(Server_Prefix):len(Arguments[0])]
+            Command = Arguments[0][len(Server_Prefix):len(Arguments[0])].lower()
             Reply = message.channel.send
 
             if await Discord_Bot.procressCooldown(message.author.id, Command, message.channel.send) == False:
